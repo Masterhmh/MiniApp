@@ -6,64 +6,70 @@
   <title>Mini App tổng quan chi tiêu</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
- <style>
+<style>
+  /* Thiết lập biến CSS toàn cục */
   :root {
-    --primary-color: #007AFF;
-    --secondary-color: #6B7280;
-    --background-color: #F7F9FC;
-    --card-bg: #FFFFFF;
-    --text-color: #1F2A44;
-    --gradient-start: #007AFF;
-    --gradient-end: #00C4FF;
-    --accent-color: #10B981;
+    --primary-color: #007AFF; /* Màu chính */
+    --secondary-color: #6B7280; /* Màu phụ */
+    --background-color: #F7F9FC; /* Màu nền tổng thể */
+    --card-bg: #FFFFFF; /* Màu nền thẻ */
+    --text-color: #1F2A44; /* Màu chữ chính */
+    --gradient-start: #007AFF; /* Điểm bắt đầu gradient */
+    --gradient-end: #00C4FF; /* Điểm kết thúc gradient */
+    --accent-color: #10B981; /* Màu nhấn */
   }
 
+  /* Thiết lập mặc định cho HTML */
   html { 
-    font-size: 16px; 
-    overflow-x: hidden;
+    font-size: 16px; /* Kích thước chữ cơ bản */
+    overflow-x: hidden; /* Ẩn thanh cuộn ngang */
   }
 
+  /* Thiết lập cơ bản cho body */
   body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', sans-serif; /* Font chữ */
     margin: 0;
-    padding: 80px 20px 20px;
+    padding: 80px 20px 20px; /* Khoảng cách trong */
     background-color: var(--background-color);
     box-sizing: border-box;
     width: 100%;
-    min-width: 320px;
+    min-width: 320px; /* Chiều rộng tối thiểu */
     overflow-x: hidden;
-    height: 100vh;
+    height: 100vh; /* Chiều cao đầy đủ viewport */
     font-size: 1rem;
     color: var(--text-color);
   }
 
+  /* Container chính */
   .content-wrapper { 
-    max-width: 700px; 
+    max-width: 700px; /* Chiều rộng tối đa */
     width: 100%; 
-    margin: 0 auto; 
+    margin: 0 auto; /* Căn giữa */
     overflow-x: hidden;
   }
 
+  /* Tab content mặc định */
   .tab-content { 
     display: none; 
     width: 100%; 
   }
 
   .tab-content.active { 
-    display: block; 
+    display: block; /* Hiển thị khi active */
   }
 
+  /* Thanh điều hướng trên cùng */
   .top-nav {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-around; /* Phân bố đều các mục */
     background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
     padding: 15px 0;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+    z-index: 1000; /* Đưa lên trên cùng */
     height: 60px;
     width: 100%;
     max-width: 100%;
@@ -77,7 +83,7 @@
     cursor: pointer;
     padding: 5px;
     color: #fff;
-    transition: opacity 0.3s, background-color 0.3s;
+    transition: opacity 0.3s, background-color 0.3s; /* Hiệu ứng chuyển đổi */
     font-size: 1rem;
     display: flex;
     flex-direction: column;
@@ -102,9 +108,10 @@
     transform: translateX(-50%);
     width: 70px;
     height: 2px;
-    background-color: #FFFFFF;
+    background-color: #FFFFFF; /* Gạch chân khi active */
   }
 
+  /* Tiêu đề */
   h1 { 
     font-size: 2rem; 
     margin-bottom: 2rem; 
@@ -118,6 +125,7 @@
     font-weight: 500; 
   }
 
+  /* Nhóm input */
   .input-group {
     margin-bottom: 1.5rem;
     display: flex;
@@ -126,7 +134,7 @@
     gap: 1rem;
     width: 100%;
     padding: 0 15px;
-    flex-wrap: nowrap;
+    flex-wrap: nowrap; /* Không xuống dòng */
   }
 
   select, input[type="date"] {
@@ -141,10 +149,11 @@
   }
 
   select:focus, input[type="date"]:focus {
-    outline: дороге;
+    outline: none; /* Sửa lỗi 'đường' thành 'none' */
     border-color: var(--primary-color);
   }
 
+  /* Nút bấm */
   button {
     padding: 0.6rem 1.5rem;
     background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
@@ -158,25 +167,27 @@
   }
 
   button:hover { 
-    transform: translateY(-2px); 
+    transform: translateY(-2px); /* Hiệu ứng nâng lên */
   }
 
+  /* Container cho các stat-box mặc định (ngang) */
   .stats-container {
     display: flex;
     justify-content: center;
     gap: 1rem;
     margin-bottom: 2rem;
     width: 100%;
-    flex-wrap: nowrap; /* Đảm bảo bố cục ngang */
+    flex-wrap: nowrap; /* Bố cục ngang */
   }
 
+  /* Thiết lập mặc định cho stat-box */
   .stat-box {
     padding: 1rem;
-    width: 120px; /* Giảm chiều rộng để vừa cả 3 hộp trên một hàng */
+    width: 120px;
     border-radius: 16px;
-    font-size: 0.9rem; /* Giảm kích thước chữ để vừa nội dung */
-    flex-grow: 0; /* Không cho phép mở rộng */
-    flex-shrink: 0; /* Không cho phép thu nhỏ */
+    font-size: 0.9rem;
+    flex-grow: 0;
+    flex-shrink: 0;
     max-width: 120px;
     min-height: 80px;
     display: flex;
@@ -197,14 +208,14 @@
     font-weight: 500;
     margin-bottom: 0.5rem;
     color: var(--text-color);
-    font-size: 0.9rem; /* Điều chỉnh kích thước chữ */
-    white-space: normal; /* Cho phép xuống dòng */
-    line-height: 1.2; /* Cải thiện khả năng đọc */
+    font-size: 0.9rem;
+    white-space: normal;
+    line-height: 1.2;
   }
 
   .stat-box .amount {
     font-weight: 700;
-    font-size: 1.2rem; /* Giảm kích thước chữ của số tiền */
+    font-size: 1.2rem;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -215,6 +226,7 @@
   .expense .amount { color: #EF4444; }
   .balance .amount { color: var(--primary-color); }
 
+  /* Thông báo */
   .notification {
     text-align: center;
     margin-bottom: 1rem;
@@ -516,6 +528,28 @@
   }
 
   /* Tab 4: Giao dịch */
+  /* Giữ nguyên #dailySummary.stats-container hiển thị ngang */
+  #dailySummary.stats-container {
+    display: flex;
+    justify-content: center; /* Giữ bố cục ngang */
+    gap: 1rem;
+    margin-bottom: 2rem;
+    width: 100%;
+    flex-wrap: nowrap; /* Không xuống dòng */
+  }
+
+  /* Điều chỉnh #transactionsContainer để hiển thị giao dịch theo chiều dọc */
+  #transactionsContainer.stats-container {
+    display: flex;
+    flex-direction: column; /* Hiển thị theo chiều dọc */
+    align-items: center; /* Căn giữa các giao dịch */
+    gap: 1rem;
+    width: 100%;
+    max-width: 600px; /* Giới hạn chiều rộng tối đa */
+    margin: 0 auto; /* Căn giữa container */
+  }
+
+  /* Thiết lập giao dịch */
   .transaction-box {
     padding: 1rem;
     width: 100%;
@@ -600,22 +634,28 @@
     }
     .stats-container { 
       gap: 0.5rem; 
-      flex-wrap: nowrap; /* Giữ bố cục ngang ngay cả trên màn hình nhỏ */
-      justify-content: space-between; /* Phân phối đều khoảng cách */
+      flex-wrap: nowrap;
+      justify-content: space-between;
     }
-    .stat-box { 
-      width: 100px; /* Giảm thêm chiều rộng cho màn hình nhỏ */
+    .stat-box」
+
+    { 
+      width: 100px;
       max-width: 100px;
       padding: 0.8rem; 
       min-height: 70px; 
-      font-size: 0.8rem; /* Chữ nhỏ hơn cho màn hình nhỏ */
+      font-size: 0.8rem;
     }
     .stat-box .title { 
       font-size: 0.8rem; 
       margin-bottom: 0.5rem; 
     }
     .stat-box .amount { 
-      font-size: 1rem; /* Giảm kích thước chữ số tiền */
+      font-size: 1rem; 
+    }
+    /* Điều chỉnh #transactionsContainer cho màn hình nhỏ */
+    #transactionsContainer.stats-container {
+      gap: 0.8rem;
     }
     canvas#myChart { 
       max-width: 320px !important; 
@@ -663,7 +703,7 @@
       font-size: 0.85rem; 
       line-height: 1.4; 
     }
-    .qr-image { width: 250px; }
+    .qr-image { width: Barbadospx; }
     .qr-caption { font-size: 0.8rem; }
     .cta-button { 
       padding: 0.5rem 1rem; 
@@ -686,10 +726,10 @@
     h1 { font-size: 1.8rem; }
     .stats-container { 
       gap: 1.5rem; 
-      flex-wrap: nowrap; /* Giữ bố cục ngang */
+      flex-wrap: nowrap;
     }
     .stat-box { 
-      width: 130px; /* Chiều rộng lớn hơn một chút cho màn hình trung bình */
+      width: 130px;
       padding: 1rem; 
       max-width: 130px;
     }
@@ -740,10 +780,10 @@
     h1 { font-size: 2rem; }
     .stats-container { 
       gap: 2rem; 
-      flex-wrap: nowrap; /* Giữ bố cục ngang */
+      flex-wrap: nowrap;
     }
     .stat-box { 
-      width: 140px; /* Chiều rộng lớn hơn cho màn hình lớn */
+      width: 140px;
       padding: 1rem; 
       max-width: 140px;
     }
@@ -910,8 +950,6 @@
   <div class="contact-column">
     <p><i class="fas fa-user" style="color: var(--primary-color);"></i><strong>Người tạo:</strong> <span class="highlight-color">Hoàng Hùng</span></p>
     <p><i class="fab fa-telegram-plane" style="color: var(--primary-color);"></i><strong>Telegram:</strong> <a href="https://t.me/masterhmh" target="_blank">@masterhmh</a></p>
-  </div>
-  <div class="contact-column">
     <p><i class="fab fa-facebook" style="color: var(--primary-color);"></i><strong>Facebook:</strong> <a href="https://facebook.com/masterhmh" target="_blank">facebook.com/masterhmh</a></p>
     <p><i class="fas fa-envelope" style="color: var(--primary-color);"></i><strong>Email:</strong> <a href="mailto:masterhmh@gmail.com">masterhmh@gmail.com</a></p>
   </div>
