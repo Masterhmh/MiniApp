@@ -183,12 +183,12 @@
   /* Thiết lập mặc định cho stat-box */
   .stat-box {
     padding: 1rem;
-    width: 180px; /* Tăng từ 160px lên 180px */
+    width: 200px; /* Tăng từ 180px lên 200px */
     border-radius: 16px;
     font-size: 0.9rem;
     flex-grow: 0;
     flex-shrink: 0;
-    max-width: 180px; /* Tăng từ 160px lên 180px */
+    max-width: 200px; /* Tăng từ 180px lên 200px */
     min-height: 80px;
     display: flex;
     flex-direction: column;
@@ -225,7 +225,7 @@
 
   /* Khi không có dữ liệu, giảm cỡ chữ để vừa stat-box */
   .stat-box .amount.no-data {
-    font-size: 0.85rem; /* Giảm cỡ chữ cho "Không có dữ liệu" */
+    font-size: 0.85rem; /* Giữ nguyên để hiển thị đầy đủ trong 200px */
     color: var(--secondary-color);
   }
 
@@ -247,7 +247,7 @@
   /* Tab 1: Thống kê */
   .stats-container .notification {
     width: 100%;
-    max-width: 540px; /* Tăng từ 480px lên 540px (3 x 180px) */
+    max-width: 600px; /* Tăng từ 540px lên 600px (3 x 200px) */
     margin: 0 auto;
   }
 
@@ -555,7 +555,7 @@
 
   #dailySummary .notification {
     width: 100%;
-    max-width: 540px; /* Tăng từ 480px lên 540px (3 x 180px) */
+    max-width: 600px; /* Tăng từ 540px lên 600px (3 x 200px) */
     margin: 0 auto;
   }
 
@@ -657,8 +657,8 @@
       justify-content: space-between;
     }
     .stat-box { 
-      width: 100px; /* Giữ nguyên cho màn hình nhỏ */
-      max-width: 100px;
+      width: 120px; /* Tăng từ 100px lên 120px */
+      max-width: 120px;
       padding: 0.8rem; 
       min-height: 70px; 
       font-size: 0.8rem;
@@ -671,11 +671,11 @@
       font-size: 1rem; 
     }
     .stat-box .amount.no-data { 
-      font-size: 0.7rem; /* Giảm cỡ chữ cho màn hình nhỏ */
+      font-size: 0.7rem; /* Giữ nguyên để vừa trong 120px */
     }
     .stats-container .notification,
     #dailySummary .notification {
-      max-width: 300px; /* 3 x 100px */
+      max-width: 360px; /* Tăng từ 300px lên 360px (3 x 120px) */
       font-size: 0.75rem;
     }
     #transactionsContainer.stats-container {
@@ -753,16 +753,16 @@
       flex-wrap: nowrap;
     }
     .stat-box { 
-      width: 140px; /* Giữ nguyên cho màn hình trung bình */
+      width: 160px; /* Tăng từ 140px lên 160px */
       padding: 1rem; 
-      max-width: 140px;
+      max-width: 160px;
     }
     .stat-box .title { font-size: 0.95rem; }
     .stat-box .amount { font-size: 1.2rem; }
     .stat-box .amount.no-data { font-size: 0.8rem; }
     .stats-container .notification,
     #dailySummary .notification {
-      max-width: 420px; /* 3 x 140px */
+      max-width: 480px; /* Tăng từ 420px lên 480px (3 x 160px) */
       font-size: 0.85rem;
     }
     canvas#myChart { max-width: 450px !important; }
@@ -813,16 +813,16 @@
       flex-wrap: nowrap;
     }
     .stat-box { 
-      width: 180px; /* Tăng từ 160px lên 180px */
+      width: 200px; /* Tăng từ 180px lên 200px */
       padding: 1rem; 
-      max-width: 180px;
+      max-width: 200px;
     }
     .stat-box .title { font-size: 1rem; }
     .stat-box .amount { font-size: 1.3rem; }
     .stat-box .amount.no-data { font-size: 0.85rem; }
     .stats-container .notification,
     #dailySummary .notification {
-      max-width: 540px; /* Tăng từ 480px lên 540px (3 x 180px) */
+      max-width: 600px; /* Tăng từ 540px lên 600px (3 x 200px) */
       font-size: 0.9rem;
     }
     canvas#myChart { max-width: 500px !important; }
