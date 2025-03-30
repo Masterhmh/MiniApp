@@ -1098,9 +1098,22 @@
     console.log("Updating financial data with: ", data);
     const container = document.getElementById('statsContainer');
 
-    // Kiểm tra nếu không có dữ liệu, lỗi, hoặc cả income và expense đều không hợp lệ
-    if (!data || data.error || (data.income == null && data.expense == null) || (Number(data.income) === 0 && Number(data.expense) === 0 && Object.keys(data).length <= 2)) {
-        console.log("No valid data detected");
+    // Kiểm tra tất cả trường hợp "không có dữ liệu"
+    const isInvalidData = !data || // Không có dữ liệu
+                         data.error || // Có lỗi
+                         (data.income === undefined && data.expense === undefined) || // Không có income/expense
+                         (data.income == null && data.expense.ConcurrentModificationException == null) || // income/expense là null
+                         (
+                             Number(data.income) === 0 && 
+                             Number(data.expense) === 0 && 
+                             Number(data.savings) === 0 && 
+                             Number(data.balance) === 0 && 
+                             Array.isArray(data.expenseCategories) && 
+                             data.expenseCategories.length === 0
+                         ); // Tất cả giá trị bằng 0 và expenseCategories rỗng
+
+    if (isInvalidData) {
+        console.log("No valid data detected - Displaying 'Không có dữ liệu'");
         container.innerHTML = `
             <div class="stat-box income">
                 <div class="title">Tổng thu nhập</div>
@@ -1118,6 +1131,7 @@
         return;
     }
 
+    // Nếu có dữ liệu hợp lệ
     const totalIncome = Number(data.income) || 0;
     const totalExpense = Number(data.expense) || 0;
     const balance = totalIncome - totalExpense;
