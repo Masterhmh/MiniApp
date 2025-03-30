@@ -183,12 +183,12 @@
   /* Thiết lập mặc định cho stat-box */
   .stat-box {
     padding: 1rem;
-    width: 160px; /* Chiều rộng cố định */
+    width: 180px; /* Tăng từ 160px lên 180px */
     border-radius: 16px;
     font-size: 0.9rem;
     flex-grow: 0;
     flex-shrink: 0;
-    max-width: 160px; /* Giới hạn chiều rộng */
+    max-width: 180px; /* Tăng từ 160px lên 180px */
     min-height: 80px;
     display: flex;
     flex-direction: column;
@@ -247,7 +247,7 @@
   /* Tab 1: Thống kê */
   .stats-container .notification {
     width: 100%;
-    max-width: 480px;
+    max-width: 540px; /* Tăng từ 480px lên 540px (3 x 180px) */
     margin: 0 auto;
   }
 
@@ -555,7 +555,7 @@
 
   #dailySummary .notification {
     width: 100%;
-    max-width: 480px;
+    max-width: 540px; /* Tăng từ 480px lên 540px (3 x 180px) */
     margin: 0 auto;
   }
 
@@ -657,7 +657,7 @@
       justify-content: space-between;
     }
     .stat-box { 
-      width: 100px; 
+      width: 100px; /* Giữ nguyên cho màn hình nhỏ */
       max-width: 100px;
       padding: 0.8rem; 
       min-height: 70px; 
@@ -675,7 +675,7 @@
     }
     .stats-container .notification,
     #dailySummary .notification {
-      max-width: 300px;
+      max-width: 300px; /* 3 x 100px */
       font-size: 0.75rem;
     }
     #transactionsContainer.stats-container {
@@ -753,7 +753,7 @@
       flex-wrap: nowrap;
     }
     .stat-box { 
-      width: 140px; 
+      width: 140px; /* Giữ nguyên cho màn hình trung bình */
       padding: 1rem; 
       max-width: 140px;
     }
@@ -762,7 +762,7 @@
     .stat-box .amount.no-data { font-size: 0.8rem; }
     .stats-container .notification,
     #dailySummary .notification {
-      max-width: 420px;
+      max-width: 420px; /* 3 x 140px */
       font-size: 0.85rem;
     }
     canvas#myChart { max-width: 450px !important; }
@@ -813,16 +813,16 @@
       flex-wrap: nowrap;
     }
     .stat-box { 
-      width: 160px; 
+      width: 180px; /* Tăng từ 160px lên 180px */
       padding: 1rem; 
-      max-width: 160px;
+      max-width: 180px;
     }
     .stat-box .title { font-size: 1rem; }
     .stat-box .amount { font-size: 1.3rem; }
     .stat-box .amount.no-data { font-size: 0.85rem; }
     .stats-container .notification,
     #dailySummary .notification {
-      max-width: 480px;
+      max-width: 540px; /* Tăng từ 480px lên 540px (3 x 180px) */
       font-size: 0.9rem;
     }
     canvas#myChart { max-width: 500px !important; }
