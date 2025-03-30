@@ -692,9 +692,7 @@
     #transactionsContainer.stats-container {
       gap: 0.8rem;
     }
-	#statsContainer .stat-box .amount.no-data {
-    color: var(--text-color); /* Đồng bộ với màu chữ mặc định trong tab Giao dịch */
-}
+
     canvas#myChart { 
       max-width: 320px !important; 
     }
@@ -1066,80 +1064,79 @@
         document.querySelector(`.nav-item[data-tab="${tabId}"]`).classList.add('active');
     };
 
-    window.fetchData = async function() {
-    const startDateInput = document.getElementById('startDate').value;
-    const endDateInput = document.getElementById('endDate').value;
-    console.log("Fetching data from: " + startDateInput + " to: " + endDateInput);
-    if (!startDateInput || !endDateInput) {
+   window.fetchData = async function() {
+      const startDateInput = document.getElementById('startDate').value;
+      const endDateInput = document.getElementById('endDate').value;
+      console.log("Fetching data from: " + startDateInput + " to: " + endDateInput);
+      if (!startDateInput || !endDateInput) {
         alert("Vui lòng chọn khoảng thời gian!");
         return;
-    }
-    const startDate = new Date(startDateInput);
-    const endDate = new Date(endDateInput);
-    if (startDate > endDate) {
+      }
+      const startDate = new Date(startDateInput);
+      const endDate = new Date(endDateInput);
+      if (startDate > endDate) {
         alert("Ngày bắt đầu không thể lớn hơn ngày kết thúc!");
         return;
-    }
+      }
 
-    try {
+      try {
         const financialResponse = await fetch(`${apiUrl}?action=getFinancialSummary&startDate=${startDateInput}&endDate=${endDateInput}&sheetId=${sheetId}`);
         const financialData = await financialResponse.json();
-        console.log("Raw financial data from API: ", financialData); // Thêm dòng này để kiểm tra dữ liệu thô
+        console.log("Raw financial data from API: ", financialData);
         if (financialData.error) {
-            throw new Error(financialData.error);
+          throw new Error(financialData.error);
         }
         updateFinancialData(financialData);
-        // Phần còn lại của hàm giữ nguyên
-    } catch (error) {
+      } catch (error) {
         console.error("Error fetching data: ", error);
         alert("Lỗi khi lấy dữ liệu: " + error.message);
         updateFinancialData({ error: true });
-    }
-};
+      }
+    };
 
     function updateFinancialData(data) {
-    console.log("Updating financial data with: ", data);
-    const container = document.getElementById('statsContainer');
+      console.log("Updating financial data with: ", data);
+      const container = document.getElementById('statsContainer');
 
-    // Kiểm tra tất cả trường hợp "không có dữ liệu"
-    const isInvalidData = !data || // Không có dữ liệu
-                         data.error || // Có lỗi
-                         (data.income === undefined && data.expense === undefined) || // Không có income/expense
-                         (data.income == null && data.expense.ConcurrentModificationException == null) || // income/expense là null
-                         (
+      // Kiểm tra tất cả trường hợp "không có dữ liệu"
+      const isInvalidData = !data || 
+                           data.error || 
+                           (data.income === undefined && data.expense === undefined) || 
+                           (data.income == null && data.expense == null) || 
+                           (
                              Number(data.income) === 0 && 
                              Number(data.expense) === 0 && 
                              Number(data.savings) === 0 && 
                              Number(data.balance) === 0 && 
                              Array.isArray(data.expenseCategories) && 
                              data.expenseCategories.length === 0
-                         ); // Tất cả giá trị bằng 0 và expenseCategories rỗng
+                           );
 
-    if (isInvalidData) {
+      if (isInvalidData) {
         console.log("No valid data detected - Displaying 'Không có dữ liệu'");
         container.innerHTML = `
-            <div class="stat-box income">
-                <div class="title">Tổng thu nhập</div>
-                <div class="amount no-data">Không có dữ liệu</div>
-            </div>
-            <div class="stat-box expense">
-                <div class="title">Tổng chi tiêu</div>
-                <div class="amount no-data">Không có dữ liệu</div>
-            </div>
-            <div class="stat-box balance">
-                <div class="title">Số dư</div>
-                <div class="amount no-data">Không có dữ liệu</div>
-            </div>
+          <div class="stat-box income">
+              <div class="title">Tổng thu nhập</div>
+              <div class="amount">Không có dữ liệu</div> <!-- Bỏ class 'no-data' -->
+          </div>
+          <div class="stat-box expense">
+              <div class="title">Tổng chi tiêu</div>
+              <div class="amount">Không có dữ liệu</div> <!-- Bỏ class 'no-data' -->
+          </div>
+          <div class="stat-box balance">
+              <div class="title">Số dư</div>
+              <div class="amount">Không có dữ liệu</div> <!-- Bỏ class 'no-data' -->
+          </div>
         `;
         return;
-    }
+      }
 
-    // Nếu có dữ liệu hợp lệ
-    const totalIncome = Number(data.income) || 0;
-    const totalExpense = Number(data.expense) || 0;
-    const balance = totalIncome - totalExpense;
-    console.log("Calculated values - Income: ", totalIncome, "Expense: ", totalExpense, "Balance: ", balance);
-    container.innerHTML = `
+      // Nếu có dữ liệu hợp lệ
+      const totalIncome = Number(data.income) || 0;
+      const totalExpense = Number(data.expense) || 0;
+      const balance = totalIncome - totalExpense;
+      console.log("Calculated values - Income: ", totalIncome, "Expense: ", totalExpense, "Balance: ", balance);
+      container.innerHTML = `
         <div class="stat-box income">
             <div class="title">Tổng thu nhập</div>
             <div class="amount">${totalIncome.toLocaleString('vi-VN')}đ</div>
@@ -1152,8 +1149,8 @@
             <div class="title">Số dư</div>
             <div class="amount">${balance.toLocaleString('vi-VN')}đ</div>
         </div>
-    `;
-}
+      `;
+    }
 
     function updateChartData(response) {
         if (response.error) {
