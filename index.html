@@ -183,12 +183,12 @@
   /* Thiết lập mặc định cho stat-box */
   .stat-box {
     padding: 1rem;
-    width: 120px;
+    width: 160px; /* Tăng chiều rộng để tránh che nội dung */
     border-radius: 16px;
     font-size: 0.9rem;
     flex-grow: 0;
     flex-shrink: 0;
-    max-width: 120px;
+    max-width: 160px; /* Tăng max-width để hiển thị đầy đủ */
     min-height: 80px;
     display: flex;
     flex-direction: column;
@@ -209,7 +209,7 @@
     margin-bottom: 0.5rem;
     color: var(--text-color);
     font-size: 0.9rem;
-    white-space: normal;
+    white-space: normal; /* Cho phép xuống dòng nếu cần */
     line-height: 1.2;
   }
 
@@ -219,7 +219,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    white-space: nowrap;
+    white-space: nowrap; /* Giữ số tiền trên một dòng */
   }
 
   .income .amount { color: #10B981; }
@@ -637,10 +637,8 @@
       flex-wrap: nowrap;
       justify-content: space-between;
     }
-    .stat-box」
-
-    { 
-      width: 100px;
+    .stat-box { 
+      width: 100px; /* Giảm chiều rộng cho màn hình nhỏ */
       max-width: 100px;
       padding: 0.8rem; 
       min-height: 70px; 
@@ -703,7 +701,7 @@
       font-size: 0.85rem; 
       line-height: 1.4; 
     }
-    .qr-image { width: Barbadospx; }
+    .qr-image { width: 250px; }
     .qr-caption { font-size: 0.8rem; }
     .cta-button { 
       padding: 0.5rem 1rem; 
@@ -729,9 +727,9 @@
       flex-wrap: nowrap;
     }
     .stat-box { 
-      width: 130px;
+      width: 140px; /* Tăng chiều rộng cho màn hình trung bình */
       padding: 1rem; 
-      max-width: 130px;
+      max-width: 140px;
     }
     .stat-box .title { font-size: 0.95rem; }
     .stat-box .amount { font-size: 1.2rem; }
@@ -783,9 +781,9 @@
       flex-wrap: nowrap;
     }
     .stat-box { 
-      width: 140px;
+      width: 160px; /* Tăng chiều rộng cho màn hình lớn */
       padding: 1rem; 
-      max-width: 140px;
+      max-width: 160px;
     }
     .stat-box .title { font-size: 1rem; }
     .stat-box .amount { font-size: 1.3rem; }
