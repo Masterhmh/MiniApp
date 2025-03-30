@@ -226,15 +226,24 @@
   .expense .amount { color: #EF4444; }
   .balance .amount { color: var(--primary-color); }
 
-  /* Thông báo */
+  /* Thông báo không có dữ liệu */
   .notification {
     text-align: center;
     margin-bottom: 1rem;
-    font-size: 1rem;
+    font-size: 0.9rem; /* Giảm cỡ chữ để vừa một dòng */
     color: var(--secondary-color);
+    white-space: nowrap; /* Giữ chữ trên một dòng */
+    padding: 0 0.5rem; /* Giảm padding để tiết kiệm không gian */
+    max-width: 100%; /* Giới hạn chiều rộng theo container cha */
   }
 
-  /* Tab 1: Thống kê */
+  /* Tab 1: Thống kê - Áp dụng thông báo khi không có dữ liệu */
+  .stats-container .notification {
+    width: 100%;
+    max-width: 480px; /* Giới hạn chiều rộng tối đa để phù hợp 3 stat-box */
+    margin: 0 auto;
+  }
+
   .chart-container {
     margin-top: 0;
     width: 100%;
@@ -538,6 +547,13 @@
     flex-wrap: nowrap; /* Không xuống dòng */
   }
 
+  /* Thông báo trong #dailySummary */
+  #dailySummary .notification {
+    width: 100%;
+    max-width: 480px; /* Giới hạn chiều rộng tối đa để phù hợp 3 stat-box */
+    margin: 0 auto;
+  }
+
   /* Điều chỉnh #transactionsContainer để hiển thị giao dịch theo chiều dọc */
   #transactionsContainer.stats-container {
     display: flex;
@@ -651,6 +667,12 @@
     .stat-box .amount { 
       font-size: 1rem; 
     }
+    /* Điều chỉnh thông báo trong tab Thống kê và Giao dịch */
+    .stats-container .notification,
+    #dailySummary .notification {
+      max-width: 300px; /* Giảm chiều rộng tối đa cho màn hình nhỏ */
+      font-size: 0.75rem; /* Giảm cỡ chữ để vừa một dòng */
+    }
     /* Điều chỉnh #transactionsContainer cho màn hình nhỏ */
     #transactionsContainer.stats-container {
       gap: 0.8rem;
@@ -733,6 +755,12 @@
     }
     .stat-box .title { font-size: 0.95rem; }
     .stat-box .amount { font-size: 1.2rem; }
+    /* Điều chỉnh thông báo trong tab Thống kê và Giao dịch */
+    .stats-container .notification,
+    #dailySummary .notification {
+      max-width: 420px; /* Điều chỉnh chiều rộng tối đa */
+      font-size: 0.85rem; /* Giảm cỡ chữ để vừa một dòng */
+    }
     canvas#myChart { max-width: 450px !important; }
     canvas#monthlyChart { 
       max-width: 500px !important; 
@@ -787,6 +815,12 @@
     }
     .stat-box .title { font-size: 1rem; }
     .stat-box .amount { font-size: 1.3rem; }
+    /* Điều chỉnh thông báo trong tab Thống kê và Giao dịch */
+    .stats-container .notification,
+    #dailySummary .notification {
+      max-width: 480px; /* Giữ chiều rộng tối đa */
+      font-size: 0.9rem; /* Giữ cỡ chữ vừa một dòng */
+    }
     canvas#myChart { max-width: 500px !important; }
     canvas#monthlyChart { 
       max-width: 600px !important; 
