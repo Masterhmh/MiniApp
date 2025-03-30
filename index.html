@@ -1370,7 +1370,13 @@
                 },
                 x: {
                     title: { display: true, text: 'Tháng', font: { size: 14 } },
-                    ticks: { font: { size: 12 } }
+                    ticks: {
+                        font: { size: 12 },
+                        // Đảm bảo tất cả các nhãn tháng được hiển thị, không bỏ qua
+                        autoSkip: false,
+                        maxRotation: 45,
+                        minRotation: 45
+                    }
                 }
             },
             plugins: {
@@ -1404,7 +1410,7 @@
     const column2 = document.createElement('div');
     column2.className = 'monthly-column';
 
-    // Chia dữ liệu thành 2 cột (giữ nguyên thứ tự từ startMonth đến endMonth)
+    // Chia dữ liệu thành 2 cột
     fullData.forEach((item, index) => {
         const difference = item.income - item.expense;
         const diffClass = difference >= 0 ? 'positive' : 'negative';
