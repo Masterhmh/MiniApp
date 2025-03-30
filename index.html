@@ -1102,44 +1102,44 @@
     };
 
     function updateFinancialData(data) {
-        console.log("Updating financial data with: ", data);
-        const container = document.getElementById('statsContainer');
-        if (!data || data.error || Object.keys(data).length === 0) {
-            console.log("No data or error detected");
-            container.innerHTML = `
-                <div class="stat-box income">
-                    <div class="title">Tổng thu nhập</div>
-                    <div class="amount">0đ</div>
-                </div>
-                <div class="stat-box expense">
-                    <div class="title">Tổng chi tiêu</div>
-                    <div class="amount">0đ</div>
-                </div>
-                <div class="stat-box balance">
-                    <div class="title">Số dư</div>
-                    <div class="amount">0đ</div>
-                </div>
-            `;
-            return;
-        }
-        const totalIncome = Number(data.income) || 0;
-        const totalExpense = Number(data.expense) || 0;
-        const balance = totalIncome - totalExpense;
+    console.log("Updating financial data with: ", data);
+    const container = document.getElementById('statsContainer');
+    if (!data || data.error || Object.keys(data).length === 0) {
+        console.log("No data or error detected");
         container.innerHTML = `
             <div class="stat-box income">
                 <div class="title">Tổng thu nhập</div>
-                <div class="amount">${totalIncome.toLocaleString('vi-VN')}đ</div>
+                <div class="amount">Không có dữ liệu</div>
             </div>
             <div class="stat-box expense">
                 <div class="title">Tổng chi tiêu</div>
-                <div class="amount">${totalExpense.toLocaleString('vi-VN')}đ</div>
+                <div class="amount">Không có dữ liệu</div>
             </div>
             <div class="stat-box balance">
                 <div class="title">Số dư</div>
-                <div class="amount">${balance.toLocaleString('vi-VN')}đ</div>
+                <div class="amount">Không có dữ liệu</div>
             </div>
         `;
+        return;
     }
+    const totalIncome = Number(data.income) || 0;
+    const totalExpense = Number(data.expense) || 0;
+    const balance = totalIncome - totalExpense;
+    container.innerHTML = `
+        <div class="stat-box income">
+            <div class="title">Tổng thu nhập</div>
+            <div class="amount">${totalIncome.toLocaleString('vi-VN')}đ</div>
+        </div>
+        <div class="stat-box expense">
+            <div class="title">Tổng chi tiêu</div>
+            <div class="amount">${totalExpense.toLocaleString('vi-VN')}đ</div>
+        </div>
+        <div class="stat-box balance">
+            <div class="title">Số dư</div>
+            <div class="amount">${balance.toLocaleString('vi-VN')}đ</div>
+        </div>
+    `;
+}
 
     function updateChartData(response) {
         if (response.error) {
