@@ -1372,7 +1372,6 @@
                     title: { display: true, text: 'Tháng', font: { size: 13 } },
                     ticks: {
                         font: { size: 10 },
-                        // Đảm bảo tất cả các nhãn tháng được hiển thị, không bỏ qua
                         autoSkip: false,
                         maxRotation: 45,
                         minRotation: 45
@@ -1402,16 +1401,13 @@
         }
     });
 
-    // Tạo chú thích với 2 cột
+    // Tạo chú thích với 1 cột duy nhất
     const monthlyLegend = document.getElementById('monthlyLegend');
     monthlyLegend.innerHTML = '';
-    const column1 = document.createElement('div');
-    column1.className = 'monthly-column';
-    const column2 = document.createElement('div');
-    column2.className = 'monthly-column';
+    const singleColumn = document.createElement('div');
+    singleColumn.className = 'monthly-column';
 
-    // Chia dữ liệu thành 2 cột
-    fullData.forEach((item, index) => {
+    fullData.forEach(item => {
         const difference = item.income - item.expense;
         const diffClass = difference >= 0 ? 'positive' : 'negative';
         const diffIcon = difference >= 0 ? 'fa-arrow-up' : 'fa-arrow-down';
@@ -1423,17 +1419,10 @@
             <p><span class="color-box" style="background-color: #EF4444;"></span>Tổng chi tiêu: <strong>${item.expense.toLocaleString('vi-VN')}đ</strong></p>
             <p><i class="fas ${diffIcon} difference-icon ${diffClass}"></i>Chênh lệch: <span class="difference ${diffClass}"><strong>${difference.toLocaleString('vi-VN')}đ</strong></span></p>
         `;
-
-        // Chia đều thành 2 cột
-        if (index < Math.ceil(fullData.length / 2)) {
-            column1.appendChild(monthItem);
-        } else {
-            column2.appendChild(monthItem);
-        }
+        singleColumn.appendChild(monthItem);
     });
 
-    monthlyLegend.appendChild(column1);
-    monthlyLegend.appendChild(column2);
+    monthlyLegend.appendChild(singleColumn);
 }
 
     function displayTransactions(data) {
