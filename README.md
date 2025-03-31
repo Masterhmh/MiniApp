@@ -1,3 +1,11 @@
+   <head>
+  <style>
+    #qrImage {
+      width: 500px;
+      height: 500px;
+    }
+  </style>
+</head>
    <h1>GIỚI THIỆU</h1>
       <div class="info-section">
         <div class="info-card">
