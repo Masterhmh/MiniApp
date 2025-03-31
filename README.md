@@ -1,8 +1,8 @@
    <head>
   <style>
     #qrImage {
-      width: 500px;
-      height: 500px;
+      width: 300px;
+      height: 300px;
     }
   </style>
 </head>
