@@ -588,6 +588,10 @@ canvas#monthlyChart {
   word-wrap: break-word;
 }
 
+.transaction-box .amount {
+  font-size: 1rem; /* Giảm kích thước số tiền */
+}
+
 /* Nhóm: Media Queries - Responsive Design */
 @media (max-width: 600px) {
   body { 
@@ -1389,18 +1393,18 @@ function updateMonthlyChart(filteredData) {
     const amountColor = item.type === 'Thu nhập' ? '#10B981' : '#EF4444';
     const typeClass = item.type === 'Thu nhập' ? 'income' : 'expense';
     transactionBox.innerHTML = `
-      <div style="display: flex; justify-content: space-between; width: 100%;">
-        <div style="flex: 1;">
-          <div class="date">${item.date}</div>
-          <div class="amount" style="font-size: 1.5rem; color: ${amountColor}">${item.amount.toLocaleString('vi-VN')}đ</div>
-          <div class="content">Nội dung: ${item.content}${item.note ? ` (${item.note})` : ''}</div>
-        </div>
-        <div style="flex: 1; text-align: right;">
-          <div class="type ${typeClass}">Phân loại: ${item.type}</div>
-          <div class="category">Phân loại chi tiết: ${item.category}</div>
-        </div>
-      </div>
-    `;
+  <div style="display: flex; justify-content: space-between; width: 100%;">
+    <div style="flex: 1;">
+      <div class="date">${item.date}</div>
+      <div class="amount" style="color: ${amountColor}">${item.amount.toLocaleString('vi-VN')}đ</div>
+      <div class="content">Nội dung: ${item.content}${item.note ? ` (${item.note})` : ''}</div>
+    </div>
+    <div style="flex: 1; text-align: right;">
+      <div class="type ${typeClass}">Phân loại: ${item.type}</div>
+      <div class="category">Phân loại chi tiết: ${item.category}</div>
+    </div>
+  </div>
+`;
     container.appendChild(transactionBox);
   });
 }
