@@ -904,7 +904,9 @@ canvas#monthlyChart {
     function updateFinancialData(data) {
   console.log("Updating financial data with: ", data);
   const container = document.getElementById('statsContainer');
-  if (!data || data.error || Object.keys(data).length === 0) {
+  
+  // Kiểm tra nếu không có dữ liệu hoặc dữ liệu trả về không hợp lệ
+  if (!data || data.error || !data.income || !data.expense || (Number(data.income) === 0 && Number(data.expense) === 0)) {
     console.log("No data or error detected");
     container.innerHTML = `
       <div class="stat-box income">
@@ -922,6 +924,7 @@ canvas#monthlyChart {
     `;
     return;
   }
+
   const totalIncome = Number(data.income) || 0;
   const totalExpense = Number(data.expense) || 0;
   const balance = totalIncome - totalExpense;
@@ -1061,31 +1064,42 @@ canvas#monthlyChart {
     if (monthlyData.error) {
       throw new Error(monthlyData.error);
     }
+
+    // Tạo mảng đầy đủ 12 tháng, điền dữ liệu từ API, nếu không có thì điền 0
     const fullYearData = Array.from({ length: 12 }, (_, i) => {
       const month = i + 1;
       const existingData = monthlyData.find(item => item.month === month);
       return existingData || { month, income: 0, expense: 0 };
     });
-    updateMonthlyChart(fullYearData, startMonth, endMonth);
+
+    // Lọc dữ liệu từ startMonth đến endMonth, đảm bảo tất cả các tháng trong khoảng đều có mặt
+    const filteredData = Array.from({ length: endMonth - startMonth + 1 }, (_, i) => {
+      const month = startMonth + i;
+      const existingData = fullYearData.find(item => item.month === month);
+      return existingData || { month, income: 0, expense: 0 };
+    });
+
+    updateMonthlyChart(filteredData);
   } catch (error) {
     console.error("Error fetching monthly data: ", error);
     alert("Lỗi khi lấy dữ liệu biểu đồ tháng: " + error.message);
-    const fullYearData = Array.from({ length: 12 }, (_, i) => ({
-      month: i + 1,
+    // Nếu có lỗi, hiển thị tất cả các tháng từ startMonth đến endMonth với giá trị 0
+    const filteredData = Array.from({ length: endMonth - startMonth + 1 }, (_, i) => ({
+      month: startMonth + i,
       income: 0,
       expense: 0
     }));
-    updateMonthlyChart(fullYearData, startMonth, endMonth);
+    updateMonthlyChart(filteredData);
   }
 };
 
-function updateMonthlyChart(monthlyData, startMonth, endMonth) {
-  console.log("Updating monthly chart with data: ", monthlyData);
+function updateMonthlyChart(filteredData) {
+  console.log("Updating monthly chart with data: ", filteredData);
   const ctx = document.getElementById('monthlyChart').getContext('2d');
   if (window.monthlyChart && typeof window.monthlyChart.destroy === 'function') {
     window.monthlyChart.destroy();
   }
-  const filteredData = monthlyData.filter(item => item.month >= startMonth && item.month <= endMonth);
+
   if (!filteredData || filteredData.length === 0) {
     window.monthlyChart = new Chart(ctx, {
       type: 'bar',
@@ -1129,9 +1143,11 @@ function updateMonthlyChart(monthlyData, startMonth, endMonth) {
     document.getElementById('monthlyLegend').innerHTML = '<div>Không có dữ liệu</div>';
     return;
   }
+
   const labels = filteredData.map(item => `Tháng ${item.month}`);
   const incomes = filteredData.map(item => item.income);
   const expenses = filteredData.map(item => item.expense);
+
   window.monthlyChart = new Chart(ctx, {
     type: 'bar',
     data: {
@@ -1185,6 +1201,7 @@ function updateMonthlyChart(monthlyData, startMonth, endMonth) {
       }
     }
   });
+
   const monthlyLegend = document.getElementById('monthlyLegend');
   monthlyLegend.innerHTML = '';
   const column = document.createElement('div');
@@ -1206,7 +1223,7 @@ function updateMonthlyChart(monthlyData, startMonth, endMonth) {
   monthlyLegend.appendChild(column);
 }
 
-   window.fetchTransactions = async function() {
+  window.fetchTransactions = async function() {
   const transactionDate = document.getElementById('transactionDate').value;
   console.log("Fetching transactions for date: " + transactionDate);
   if (!transactionDate) {
