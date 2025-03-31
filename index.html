@@ -37,6 +37,9 @@ body {
   height: 100vh;
   font-size: 1rem;
   color: var(--text-color);
+  display: flex; /* Thêm flex để căn giữa content-wrapper */
+  flex-direction: column;
+  align-items: center;
 }
 
 .content-wrapper { 
@@ -44,6 +47,9 @@ body {
   width: 100%; 
   margin: 0 auto; 
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Đảm bảo nội dung bên trong được căn giữa */
 }
 
 .tab-content { 
@@ -176,7 +182,7 @@ button:hover {
   gap: 1rem;
   margin-bottom: 2rem;
   width: 100%;
-  flex-wrap: nowrap;
+  flex-wrap: wrap; /* Cho phép xuống dòng trên màn hình nhỏ */
 }
 
 .stats-container > div { 
@@ -335,12 +341,12 @@ canvas#monthlyChart {
   padding: 0 20px;
   margin: 2rem auto 0;
   gap: 1rem;
-  align-items: center; /* Căn giữa cột ghi chú */
+  align-items: center;
 }
 
 .monthly-column {
   width: 100%;
-  max-width: 400px; /* Giới hạn chiều rộng của cột ghi chú để dễ đọc */
+  max-width: 400px;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -595,7 +601,10 @@ canvas#monthlyChart {
 
 /* Nhóm: Media Queries - Responsive Design */
 @media (max-width: 600px) {
-  body { padding: 60px 5px 10px; font-size: 0.9rem; }
+  body { 
+    padding: 60px 5px 10px; 
+    font-size: 0.9rem; 
+  }
   h1 { font-size: 1.5rem; margin-bottom: 1rem; }
   .top-nav { height: 50px; padding: 10px 0; }
   .nav-item i { font-size: 1.2rem; }
@@ -603,23 +612,30 @@ canvas#monthlyChart {
   .input-group { gap: 0.5rem; padding: 0 5px; }
   select, input[type="date"] { width: 110px; font-size: 0.85rem; padding: 0.6rem; }
   button { padding: 0.6rem 1rem; font-size: 0.85rem; }
-  .stats-container { gap: 0.5rem; }
+  .stats-container { 
+    gap: 0.5rem; 
+    flex-wrap: wrap; /* Cho phép xuống dòng */
+    justify-content: center; /* Đảm bảo căn giữa */
+  }
   .stat-box { 
-    width: 100px; max-width: 100px; padding: 0.8rem; 
-    min-height: 70px; font-size: 0.8rem; 
+    width: 100px; 
+    max-width: 100px; 
+    padding: 0.8rem; 
+    min-height: 70px; 
+    font-size: 0.8rem; 
   }
   .stat-box .title { font-size: 0.8rem; margin-bottom: 0.5rem; }
   .stat-box .amount { font-size: 1rem; }
   .chart-container {
-    padding: 0 5px; /* Giảm padding để có thêm không gian */
+    padding: 0 5px;
   }
   canvas#myChart { max-width: 320px !important; }
   canvas#monthlyChart { 
-    max-width: 100% !important; /* Sử dụng toàn bộ chiều rộng có sẵn */
+    max-width: 100% !important;
     width: 100% !important;
     min-height: 300px; 
     max-height: 400px; 
-    padding: 5px; /* Giảm padding để có thêm không gian */
+    padding: 5px;
   }
   .custom-legend { 
     flex-direction: column; 
@@ -633,13 +649,13 @@ canvas#monthlyChart {
   }
   .legend-text { font-size: 0.85rem; }
   .monthly-legend { 
-    max-width: 100%; /* Sử dụng toàn bộ chiều rộng */
+    max-width: 100%; 
     padding: 0 10px; 
     font-size: 0.85rem; 
     gap: 0.4rem; 
   }
   .monthly-column { 
-    max-width: 100%; /* Sử dụng toàn bộ chiều rộng */
+    max-width: 100%; 
     gap: 1rem; 
   }
   .month-item h3 { font-size: 0.95rem; }
@@ -662,13 +678,17 @@ canvas#monthlyChart {
 @media (min-width: 601px) and (max-width: 1023px) {
   body { padding: 70px 20px 20px; }
   h1 { font-size: 1.8rem; }
-  .stats-container { gap: 1.5rem; }
+  .stats-container { 
+    gap: 1.5rem; 
+    flex-wrap: wrap; /* Cho phép xuống dòng nếu cần */
+    justify-content: center; /* Đảm bảo căn giữa */
+  }
   .stat-box { width: 130px; padding: 1rem; max-width: 130px; }
   .stat-box .title { font-size: 0.95rem; }
   .stat-box .amount { font-size: 1.2rem; }
   canvas#myChart { max-width: 450px !important; }
   canvas#monthlyChart { 
-    max-width: 100% !important; /* Sử dụng toàn bộ chiều rộng */
+    max-width: 100% !important;
     width: 100% !important;
     min-height: 350px; 
     max-height: 450px; 
@@ -682,7 +702,7 @@ canvas#monthlyChart {
     gap: 0.5rem; 
   }
   .monthly-column { 
-    max-width: 500px; /* Tăng chiều rộng cột ghi chú */
+    max-width: 500px; 
   }
   .month-item h3 { font-size: 1.1rem; }
   .month-item p { font-size: 0.95rem; }
@@ -702,13 +722,17 @@ canvas#monthlyChart {
   .content-wrapper { max-width: 800px; }
   body { padding: 80px 30px 30px; }
   h1 { font-size: 2rem; }
-  .stats-container { gap: 2rem; }
+  .stats-container { 
+    gap: 2rem; 
+    flex-wrap: wrap; /* Cho phép xuống dòng nếu cần */
+    justify-content: center; /* Đảm bảo căn giữa */
+  }
   .stat-box { width: 140px; padding: 1rem; max-width: 140px; }
   .stat-box .title { font-size: 1rem; }
   .stat-box .amount { font-size: 1.3rem; }
   canvas#myChart { max-width: 500px !important; }
   canvas#monthlyChart { 
-    max-width: 100% !important; /* Sử dụng toàn bộ chiều rộng */
+    max-width: 100% !important;
     width: 100% !important;
     min-height: 400px; 
     max-height: 500px; 
@@ -722,7 +746,7 @@ canvas#monthlyChart {
     gap: 0.5rem; 
   }
   .monthly-column { 
-    max-width: 600px; /* Tăng chiều rộng cột ghi chú */
+    max-width: 600px; 
   }
   .month-item h3 { font-size: 1.2rem; }
   .month-item p { font-size: 1rem; }
