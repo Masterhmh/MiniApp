@@ -1048,179 +1048,175 @@ canvas#monthlyChart {
     }
 
     window.fetchMonthlyData = async function() {
-  const startMonth = parseInt(document.getElementById('startMonth').value);
-  const endMonth = parseInt(document.getElementById('endMonth').value);
-  const year = new Date().getFullYear();
-  console.log("Fetching monthly data from month: " + startMonth + " to: " + endMonth);
-  if (startMonth > endMonth) {
-    alert("Tháng bắt đầu không thể lớn hơn tháng kết thúc!");
-    return;
-  }
-
-  try {
-    const response = await fetch(`${apiUrl}?action=getMonthlyData&year=${year}&sheetId=${sheetId}`);
-    const monthlyData = await response.json();
-    console.log("Monthly data received: ", monthlyData);
-    if (monthlyData.error) {
-      throw new Error(monthlyData.error);
+    const startMonth = parseInt(document.getElementById('startMonth').value);
+    const endMonth = parseInt(document.getElementById('endMonth').value);
+    const year = new Date().getFullYear();
+    console.log("Fetching monthly data from month: " + startMonth + " to: " + endMonth);
+    if (startMonth > endMonth) {
+        alert("Tháng bắt đầu không thể lớn hơn tháng kết thúc!");
+        return;
     }
 
-    // Tạo mảng đầy đủ 12 tháng, điền dữ liệu từ API, nếu không có thì điền 0
-    const fullYearData = Array.from({ length: 12 }, (_, i) => {
-      const month = i + 1;
-      const existingData = monthlyData.find(item => item.month === month);
-      return existingData || { month, income: 0, expense: 0 };
-    });
+    try {
+        const response = await fetch(`${apiUrl}?action=getMonthlyData&year=${year}&sheetId=${sheetId}`);
+        const monthlyData = await response.json();
+        console.log("Monthly data received: ", monthlyData);
+        if (monthlyData.error) {
+            throw new Error(monthlyData.error);
+        }
 
-    // Lọc dữ liệu từ startMonth đến endMonth, đảm bảo tất cả các tháng trong khoảng đều có mặt
-    const filteredData = Array.from({ length: endMonth - startMonth + 1 }, (_, i) => {
-      const month = startMonth + i;
-      const existingData = fullYearData.find(item => item.month === month);
-      return existingData || { month, income: 0, expense: 0 };
-    });
+        // Tạo mảng đầy đủ 12 tháng, điền dữ liệu từ API, nếu không có thì điền 0
+        const fullYearData = Array.from({ length: 12 }, (_, i) => {
+            const month = i + 1;
+            const existingData = monthlyData.find(item => item.month === month);
+            return existingData || { month, income: 0, expense: 0 };
+        });
 
-    updateMonthlyChart(filteredData);
-  } catch (error) {
-    console.error("Error fetching monthly data: ", error);
-    alert("Lỗi khi lấy dữ liệu biểu đồ tháng: " + error.message);
-    // Nếu có lỗi, hiển thị tất cả các tháng từ startMonth đến endMonth với giá trị 0
-    const filteredData = Array.from({ length: endMonth - startMonth + 1 }, (_, i) => ({
-      month: startMonth + i,
-      income: 0,
-      expense: 0
-    }));
-    updateMonthlyChart(filteredData);
-  }
+        // Lọc dữ liệu từ startMonth đến endMonth, đảm bảo tất cả các tháng trong khoảng đều có mặt
+        const filteredData = Array.from({ length: endMonth - startMonth + 1 }, (_, i) => {
+            const month = startMonth + i;
+            const existingData = fullYearData.find(item => item.month === month);
+            return existingData || { month, income: 0, expense: 0 };
+        });
+
+        updateMonthlyChart(filteredData);
+    } catch (error) {
+        console.error("Error fetching monthly data: ", error);
+        alert("Lỗi khi lấy dữ liệu biểu đồ tháng: " + error.message);
+        // Nếu có lỗi, hiển thị tất cả các tháng từ startMonth đến endMonth với giá trị 0
+        const filteredData = Array.from({ length: endMonth - startMonth + 1 }, (_, i) => ({
+            month: startMonth + i,
+            income: 0,
+            expense: 0
+        }));
+        updateMonthlyChart(filteredData);
+    }
 };
 
 function updateMonthlyChart(filteredData) {
-  console.log("Updating monthly chart with data: ", filteredData);
-  const ctx = document.getElementById('monthlyChart').getContext('2d');
-  if (window.monthlyChart && typeof window.monthlyChart.destroy === 'function') {
-    window.monthlyChart.destroy();
-  }
-
-  if (!filteredData || filteredData.length === 0) {
-    window.monthlyChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['Không có dữ liệu'],
-        datasets: [
-          { label: 'Thu nhập', data: [0], backgroundColor: '#10B981' },
-          { label: 'Chi tiêu', data: [0], backgroundColor: '#EF4444' }
-        ]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: true,
-        aspectRatio: 1,
-        scales: {
-          y: { 
-            beginAtZero: true, 
-            title: { display: true, text: 'Số tiền (đ)', font: { size: 14 } }, 
-            ticks: { font: { size: 12 } } 
-          },
-          x: { 
-            title: { display: true, text: 'Tháng', font: { size: 14 } }, 
-            ticks: { font: { size: 12 } } 
-          }
-        },
-        plugins: {
-          legend: { display: true, labels: { font: { size: 12 } } },
-          tooltip: {
-            titleFont: { size: 12 },
-            bodyFont: { size: 12 },
-            callbacks: {
-              label: function(tooltipItem) {
-                return `${tooltipItem.dataset.label}: ${tooltipItem.raw.toLocaleString('vi-VN')}đ`;
-              }
-            }
-          },
-          datalabels: { display: false }
-        }
-      }
-    });
-    document.getElementById('monthlyLegend').innerHTML = '<div>Không có dữ liệu</div>';
-    return;
-  }
-
-  const labels = filteredData.map(item => `Tháng ${item.month}`);
-  const incomes = filteredData.map(item => item.income);
-  const expenses = filteredData.map(item => item.expense);
-
-  window.monthlyChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: labels,
-      datasets: [
-        { label: 'Thu nhập', data: incomes, backgroundColor: '#10B981', borderColor: '#10B981', borderWidth: 1 },
-        { label: 'Chi tiêu', data: expenses, backgroundColor: '#EF4444', borderColor: '#EF4444', borderWidth: 1 }
-      ]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: true,
-      aspectRatio: 1,
-      scales: {
-        y: {
-          beginAtZero: true,
-          title: { display: true, text: 'Số tiền (đ)', font: { size: 14 } },
-          ticks: {
-            callback: function(value) { return value.toLocaleString('vi-VN') + 'đ'; },
-            font: { size: 12 }
-          }
-        },
-        x: {
-          title: { display: true, text: 'Tháng', font: { size: 14 } },
-          ticks: {
-            font: { size: 10 },
-            maxRotation: 45,
-            minRotation: 45
-          }
-        }
-      },
-      plugins: {
-        legend: { display: true, labels: { font: { size: 12 } } },
-        tooltip: {
-          titleFont: { size: 12 },
-          bodyFont: { size: 12 },
-          callbacks: {
-            label: function(tooltipItem) {
-              return `${tooltipItem.dataset.label}: ${tooltipItem.raw.toLocaleString('vi-VN')}đ`;
-            }
-          }
-        },
-        datalabels: {
-          display: true,
-          align: 'end',
-          anchor: 'end',
-          formatter: (value) => value.toLocaleString('vi-VN') + 'đ',
-          color: '#1F2A44',
-          font: { weight: 'bold', size: 10 }
-        }
-      }
+    console.log("Updating monthly chart with data: ", filteredData);
+    const ctx = document.getElementById('monthlyChart').getContext('2d');
+    if (window.monthlyChart && typeof window.monthlyChart.destroy === 'function') {
+        window.monthlyChart.destroy();
     }
-  });
 
-  const monthlyLegend = document.getElementById('monthlyLegend');
-  monthlyLegend.innerHTML = '';
-  const column = document.createElement('div');
-  column.className = 'monthly-column';
-  filteredData.forEach(item => {
-    const difference = item.income - item.expense;
-    const diffClass = difference >= 0 ? 'positive' : 'negative';
-    const diffIcon = difference >= 0 ? 'fa-arrow-up' : 'fa-arrow-down';
-    const monthItem = document.createElement('div');
-    monthItem.className = 'month-item';
-    monthItem.innerHTML = `
-      <h3>Tháng ${item.month}:</h3>
-      <p><span class="color-box" style="background-color: #10B981;"></span>Tổng thu nhập: <strong>${item.income.toLocaleString('vi-VN')}đ</strong></p>
-      <p><span class="color-box" style="background-color: #EF4444;"></span>Tổng chi tiêu: <strong>${item.expense.toLocaleString('vi-VN')}đ</strong></p>
-      <p><i class="fas ${diffIcon} difference-icon ${diffClass}"></i>Chênh lệch: <span class="difference ${diffClass}"><strong>${difference.toLocaleString('vi-VN')}đ</strong></span></p>
-    `;
-    column.appendChild(monthItem);
-  });
-  monthlyLegend.appendChild(column);
+    if (!filteredData || filteredData.length === 0) {
+        window.monthlyChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Không có dữ liệu'],
+                datasets: [
+                    { label: 'Thu nhập', data: [0], backgroundColor: '#10B981' },
+                    { label: 'Chi tiêu', data: [0], backgroundColor: '#EF4444' }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                aspectRatio: 1,
+                scales: {
+                    y: { 
+                        beginAtZero: true, 
+                        title: { display: true, text: 'Số tiền (đ)', font: { size: 14 } }, 
+                        ticks: { font: { size: 12 } } 
+                    },
+                    x: { 
+                        title: { display: true, text: 'Tháng', font: { size: 14 } }, 
+                        ticks: { font: { size: 12 } } 
+                    }
+                },
+                plugins: {
+                    legend: { display: true, labels: { font: { size: 12 } } },
+                    tooltip: {
+                        titleFont: { size: 12 },
+                        bodyFont: { size: 12 },
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return `${tooltipItem.dataset.label}: ${tooltipItem.raw.toLocaleString('vi-VN')}đ`;
+                            }
+                        }
+                    },
+                    datalabels: { display: false }
+                }
+            }
+        });
+        document.getElementById('monthlyLegend').innerHTML = '<div>Không có dữ liệu</div>';
+        return;
+    }
+
+    const labels = filteredData.map(item => `Tháng ${item.month}`);
+    const incomes = filteredData.map(item => item.income);
+    const expenses = filteredData.map(item => item.expense);
+
+    window.monthlyChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [
+                { label: 'Thu nhập', data: incomes, backgroundColor: '#10B981', borderColor: '#10B981', borderWidth: 1 },
+                { label: 'Chi tiêu', data: expenses, backgroundColor: '#EF4444', borderColor: '#EF4444', borderWidth: 1 }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            aspectRatio: 1,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: { display: true, text: 'Số tiền (đ)', font: { size: 14 } },
+                    ticks: {
+                        callback: function(value) { return value.toLocaleString('vi-VN') + 'đ'; },
+                        font: { size: 12 }
+                    }
+                },
+                x: {
+                    title: { display: true, text: 'Tháng', font: { size: 14 } },
+                    ticks: { font: { size: 12 } }
+                }
+            },
+            plugins: {
+                legend: { display: true, labels: { font: { size: 12 } } },
+                tooltip: {
+                    titleFont: { size: 12 },
+                    bodyFont: { size: 12 },
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return `${tooltipItem.dataset.label}: ${tooltipItem.raw.toLocaleString('vi-VN')}đ`;
+                        }
+                    }
+                },
+                datalabels: {
+                    display: true,
+                    align: 'end',
+                    anchor: 'end',
+                    formatter: (value) => value.toLocaleString('vi-VN') + 'đ',
+                    color: '#1F2A44',
+                    font: { weight: 'bold', size: 12 }
+                }
+            }
+        }
+    });
+
+    const monthlyLegend = document.getElementById('monthlyLegend');
+    monthlyLegend.innerHTML = '';
+    const column = document.createElement('div');
+    column.className = 'monthly-column';
+    filteredData.forEach(item => {
+        const difference = item.income - item.expense;
+        const diffClass = difference >= 0 ? 'positive' : 'negative';
+        const diffIcon = difference >= 0 ? 'fa-arrow-up' : 'fa-arrow-down';
+        const monthItem = document.createElement('div');
+        monthItem.className = 'month-item';
+        monthItem.innerHTML = `
+            <h3>Tháng ${item.month}:</h3>
+            <p><span class="color-box" style="background-color: #10B981;"></span>Tổng thu nhập: <strong>${item.income.toLocaleString('vi-VN')}đ</strong></p>
+            <p><span class="color-box" style="background-color: #EF4444;"></span>Tổng chi tiêu: <strong>${item.expense.toLocaleString('vi-VN')}đ</strong></p>
+            <p><i class="fas ${diffIcon} difference-icon ${diffClass}"></i>Chênh lệch: <span class="difference ${diffClass}"><strong>${difference.toLocaleString('vi-VN')}đ</strong></span></p>
+        `;
+        column.appendChild(monthItem);
+    });
+    monthlyLegend.appendChild(column);
 }
 
   window.fetchTransactions = async function() {
