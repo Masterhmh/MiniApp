@@ -225,10 +225,10 @@ button:hover {
 }
 
 .stat-box .amount.no-data {
-  font-size: 0.8rem; /* Giảm kích thước chữ */
-  white-space: normal; /* Cho phép xuống dòng */
-  word-wrap: break-word; /* Đảm bảo từ dài không tràn */
-  line-height: 1.2; /* Điều chỉnh khoảng cách dòng cho dễ đọc */
+  font-size: 0.8rem;
+  white-space: normal;
+  word-wrap: break-word;
+  line-height: 1.2;
 }
 
 .income .amount { color: #10B981; }
@@ -335,10 +335,12 @@ canvas#monthlyChart {
   padding: 0 20px;
   margin: 2rem auto 0;
   gap: 1rem;
+  align-items: center; /* Căn giữa cột ghi chú */
 }
 
 .monthly-column {
   width: 100%;
+  max-width: 400px; /* Giới hạn chiều rộng của cột ghi chú để dễ đọc */
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -543,7 +545,7 @@ canvas#monthlyChart {
   border-radius: 16px;
   font-size: 1rem;
   display: flex;
-  flex-direction -direction: column;
+  flex-direction: column;
   align-items: flex-start;
   background: linear-gradient(135deg, #F8FAFC, #E5E7EB);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
@@ -608,13 +610,38 @@ canvas#monthlyChart {
   }
   .stat-box .title { font-size: 0.8rem; margin-bottom: 0.5rem; }
   .stat-box .amount { font-size: 1rem; }
+  .chart-container {
+    padding: 0 5px; /* Giảm padding để có thêm không gian */
+  }
   canvas#myChart { max-width: 320px !important; }
-  canvas#monthlyChart { max-width: 320px !important; min-height: 300px; max-height: 400px; }
-  .custom-legend { flex-direction: column; max-width: 320px; font-size: 0.85rem; gap: 0.4rem; }
-  .custom-legend-column { width: 100%; min-width: 0; }
+  canvas#monthlyChart { 
+    max-width: 100% !important; /* Sử dụng toàn bộ chiều rộng có sẵn */
+    width: 100% !important;
+    min-height: 300px; 
+    max-height: 400px; 
+    padding: 5px; /* Giảm padding để có thêm không gian */
+  }
+  .custom-legend { 
+    flex-direction: column; 
+    max-width: 320px; 
+    font-size: 0.85rem; 
+    gap: 0.4rem; 
+  }
+  .custom-legend-column { 
+    width: 100%; 
+    min-width: 0; 
+  }
   .legend-text { font-size: 0.85rem; }
-  .monthly-legend { max-width: 320px; font-size: 0.85rem; gap: 0.4rem; padding: 0 10px; }
-  .monthly-column { width: 100%; min-width: 0; gap: 1rem; }
+  .monthly-legend { 
+    max-width: 100%; /* Sử dụng toàn bộ chiều rộng */
+    padding: 0 10px; 
+    font-size: 0.85rem; 
+    gap: 0.4rem; 
+  }
+  .monthly-column { 
+    max-width: 100%; /* Sử dụng toàn bộ chiều rộng */
+    gap: 1rem; 
+  }
   .month-item h3 { font-size: 0.95rem; }
   .month-item p { font-size: 0.85rem; }
   .info-section { padding: 0 10px; gap: 0.4rem; max-width: 400px; }
@@ -640,12 +667,23 @@ canvas#monthlyChart {
   .stat-box .title { font-size: 0.95rem; }
   .stat-box .amount { font-size: 1.2rem; }
   canvas#myChart { max-width: 450px !important; }
-  canvas#monthlyChart { max-width: 500px !important; min-height: 350px; max-height: 450px; }
+  canvas#monthlyChart { 
+    max-width: 100% !important; /* Sử dụng toàn bộ chiều rộng */
+    width: 100% !important;
+    min-height: 350px; 
+    max-height: 450px; 
+  }
   .custom-legend { max-width: 550px; font-size: 0.95rem; gap: 0.3rem; }
   .custom-legend-column { width: 48%; min-width: 260px; }
   .legend-text { font-size: 0.95rem; }
-  .monthly-legend { max-width: 650px; font-size: 0.95rem; gap: 0.5rem; }
-  .monthly-column { width: 100%; min-width: 0; }
+  .monthly-legend { 
+    max-width: 100%; 
+    font-size: 0.95rem; 
+    gap: 0.5rem; 
+  }
+  .monthly-column { 
+    max-width: 500px; /* Tăng chiều rộng cột ghi chú */
+  }
   .month-item h3 { font-size: 1.1rem; }
   .month-item p { font-size: 0.95rem; }
   select, input[type="date"] { width: 150px; font-size: 0.95rem; }
@@ -669,12 +707,23 @@ canvas#monthlyChart {
   .stat-box .title { font-size: 1rem; }
   .stat-box .amount { font-size: 1.3rem; }
   canvas#myChart { max-width: 500px !important; }
-  canvas#monthlyChart { max-width: 600px !important; min-height: 400px; max-height: 500px; }
+  canvas#monthlyChart { 
+    max-width: 100% !important; /* Sử dụng toàn bộ chiều rộng */
+    width: 100% !important;
+    min-height: 400px; 
+    max-height: 500px; 
+  }
   .custom-legend { max-width: 600px; font-size: 1rem; gap: 0.3rem; }
   .custom-legend-column { width: 48%; min-width: 280px; }
   .legend-text { font-size: 1rem; }
-  .monthly-legend { max-width: 700px; font-size: 1rem; gap: 0.5rem; }
-  .monthly-column { width: 100%; min-width: 0; }
+  .monthly-legend { 
+    max-width: 100%; 
+    font-size: 1rem; 
+    gap: 0.5rem; 
+  }
+  .monthly-column { 
+    max-width: 600px; /* Tăng chiều rộng cột ghi chú */
+  }
   .month-item h3 { font-size: 1.2rem; }
   .month-item p { font-size: 1rem; }
   .info-card h2 { font-size: 1.5rem; }
@@ -1172,7 +1221,12 @@ function updateMonthlyChart(filteredData) {
                 },
                 x: {
                     title: { display: true, text: 'Tháng', font: { size: 14 } },
-                    ticks: { font: { size: 12 } }
+                    ticks: {
+                        font: { size: 10 },
+                        maxRotation: 45,
+                        minRotation: 45,
+                        autoSkip: false // Đảm bảo không bỏ qua nhãn nào
+                    }
                 }
             },
             plugins: {
@@ -1200,8 +1254,10 @@ function updateMonthlyChart(filteredData) {
 
     const monthlyLegend = document.getElementById('monthlyLegend');
     monthlyLegend.innerHTML = '';
-    const column = document.createElement('div');
+    const column = document.createElement('div'); // Chỉ tạo 1 cột duy nhất
     column.className = 'monthly-column';
+
+    // Liệt kê tất cả các tháng theo thứ tự
     filteredData.forEach(item => {
         const difference = item.income - item.expense;
         const diffClass = difference >= 0 ? 'positive' : 'negative';
@@ -1216,7 +1272,8 @@ function updateMonthlyChart(filteredData) {
         `;
         column.appendChild(monthItem);
     });
-    monthlyLegend.appendChild(column);
+
+    monthlyLegend.appendChild(column); // Chỉ thêm 1 cột vào monthlyLegend
 }
 
   window.fetchTransactions = async function() {
