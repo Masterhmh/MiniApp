@@ -961,46 +961,70 @@ canvas#monthlyChart {
 };
 
     function updateFinancialData(data) {
-  console.log("Updating financial data with: ", data);
-  const container = document.getElementById('statsContainer');
-  
-  // Kiểm tra nếu không có dữ liệu hoặc dữ liệu trả về không hợp lệ
-  if (!data || data.error || !data.income || !data.expense || (Number(data.income) === 0 && Number(data.expense) === 0)) {
-    console.log("No data or error detected");
-    container.innerHTML = `
-      <div class="stat-box income">
-        <div class="title">Tổng thu nhập</div>
-        <div class="amount no-data">Không có dữ liệu</div>
-      </div>
-      <div class="stat-box expense">
-        <div class="title">Tổng chi tiêu</div>
-        <div class="amount no-data">Không có dữ liệu</div>
-      </div>
-      <div class="stat-box balance">
-        <div class="title">Số dư</div>
-        <div class="amount no-data">Không có dữ liệu</div>
-      </div>
-    `;
-    return;
-  }
+    console.log("Updating financial data with: ", data);
+    const container = document.getElementById('statsContainer');
 
-  const totalIncome = Number(data.income) || 0;
-  const totalExpense = Number(data.expense) || 0;
-  const balance = totalIncome - totalExpense;
-  container.innerHTML = `
-    <div class="stat-box income">
-      <div class="title">Tổng thu nhập</div>
-      <div class="amount">${totalIncome.toLocaleString('vi-VN')}đ</div>
-    </div>
-    <div class="stat-box expense">
-      <div class="title">Tổng chi tiêu</div>
-      <div class="amount">${totalExpense.toLocaleString('vi-VN')}đ</div>
-    </div>
-    <div class="stat-box balance">
-      <div class="title">Số dư</div>
-      <div class="amount">${balance.toLocaleString('vi-VN')}đ</div>
-    </div>
-  `;
+    // Nếu không có dữ liệu hoặc có lỗi, hiển thị mặc định
+    if (!data || data.error) {
+        console.log("No data or error detected");
+        container.innerHTML = `
+            <div class="stat-box income">
+                <div class="title">Tổng thu nhập</div>
+                <div class="amount">Không có dữ liệu</div>
+            </div>
+            <div class="stat-box expense">
+                <div class="title">Tổng chi tiêu</div>
+                <div class="amount">Không có dữ liệu</div>
+            </div>
+            <div class="stat-box balance">
+                <div class="title">Số dư</div>
+                <div class="amount">Không có dữ liệu</div>
+            </div>
+        `;
+        return;
+    }
+
+    // Lấy giá trị từ dữ liệu, mặc định là 0 nếu không có
+    const totalIncome = Number(data.income) || 0;  // Nếu không có thu nhập, đặt là 0
+    const totalExpense = Number(data.expense) || 0;  // Nếu không có chi tiêu, đặt là 0
+
+    // Nếu cả thu nhập và chi tiêu đều là 0, hiển thị "Không có dữ liệu"
+    if (totalIncome === 0 && totalExpense === 0) {
+        container.innerHTML = `
+            <div class="stat-box income">
+                <div class="title">Tổng thu nhập</div>
+                <div class="amount">Không có dữ liệu</div>
+            </div>
+            <div class="stat-box expense">
+                <div class="title">Tổng chi tiêu</div>
+                <div class="amount">Không có dữ liệu</div>
+            </div>
+            <div class="stat-box balance">
+                <div class="title">Số dư</div>
+                <div class="amount">Không có dữ liệu</div>
+            </div>
+        `;
+        return;
+    }
+
+    // Tính số dư nếu có ít nhất một giá trị khác 0
+    const balance = totalIncome - totalExpense;
+
+    // Cập nhật giao diện với dữ liệu thực tế
+    container.innerHTML = `
+        <div class="stat-box income">
+            <div class="title">Tổng thu nhập</div>
+            <div class="amount">${totalIncome.toLocaleString('vi-VN')}đ</div>
+        </div>
+        <div class="stat-box expense">
+            <div class="title">Tổng chi tiêu</div>
+            <div class="amount">${totalExpense.toLocaleString('vi-VN')}đ</div>
+        </div>
+        <div class="stat-box balance">
+            <div class="title">Số dư</div>
+            <div class="amount">${balance.toLocaleString('vi-VN')}đ</div>
+        </div>
+    `;
 }
     function updateChartData(response) {
       if (response.error) {
