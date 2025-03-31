@@ -6,70 +6,64 @@
   <title>Mini App tổng quan chi tiêu</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  /* Thiết lập biến CSS toàn cục */
+ <style>
   :root {
-    --primary-color: #007AFF; /* Màu chính */
-    --secondary-color: #6B7280; /* Màu phụ */
-    --background-color: #F7F9FC; /* Màu nền tổng thể */
-    --card-bg: #FFFFFF; /* Màu nền thẻ */
-    --text-color: #1F2A44; /* Màu chữ chính */
-    --gradient-start: #007AFF; /* Điểm bắt đầu gradient */
-    --gradient-end: #00C4FF; /* Điểm kết thúc gradient */
-    --accent-color: #10B981; /* Màu nhấn */
+    --primary-color: #007AFF;
+    --secondary-color: #6B7280;
+    --background-color: #F7F9FC;
+    --card-bg: #FFFFFF;
+    --text-color: #1F2A44;
+    --gradient-start: #007AFF;
+    --gradient-end: #00C4FF;
+    --accent-color: #10B981;
   }
 
-  /* Thiết lập mặc định cho HTML */
   html { 
-    font-size: 16px; /* Kích thước chữ cơ bản */
-    overflow-x: hidden; /* Ẩn thanh cuộn ngang */
+    font-size: 16px; 
+    overflow-x: hidden;
   }
 
-  /* Thiết lập cơ bản cho body */
   body {
-    font-family: 'Inter', sans-serif; /* Font chữ */
+    font-family: 'Inter', sans-serif;
     margin: 0;
-    padding: 80px 20px 20px; /* Khoảng cách trong */
+    padding: 80px 20px 20px;
     background-color: var(--background-color);
     box-sizing: border-box;
     width: 100%;
-    min-width: 320px; /* Chiều rộng tối thiểu */
+    min-width: 320px;
     overflow-x: hidden;
-    height: 100vh; /* Chiều cao đầy đủ viewport */
+    height: 100vh;
     font-size: 1rem;
     color: var(--text-color);
   }
 
-  /* Container chính */
   .content-wrapper { 
-    max-width: 700px; /* Chiều rộng tối đa */
+    max-width: 700px; 
     width: 100%; 
-    margin: 0 auto; /* Căn giữa */
+    margin: 0 auto; 
     overflow-x: hidden;
   }
 
-  /* Tab content mặc định */
   .tab-content { 
     display: none; 
     width: 100%; 
   }
 
   .tab-content.active { 
-    display: block; /* Hiển thị khi active */
+    display: block; 
   }
 
-  /* Thanh điều hướng trên cùng */
   .top-nav {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     display: flex;
-    justify-content: space-around; /* Phân bố đều các mục */
+    justify-content: space-around;
     background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
     padding: 15px 0;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Đổ bóng */
-    z-index: 1000; /* Đưa lên trên cùng */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
     height: 60px;
     width: 100%;
     max-width: 100%;
@@ -83,7 +77,7 @@
     cursor: pointer;
     padding: 5px;
     color: #fff;
-    transition: opacity 0.3s, background-color 0.3s; /* Hiệu ứng chuyển đổi */
+    transition: opacity 0.3s, background-color 0.3s;
     font-size: 1rem;
     display: flex;
     flex-direction: column;
@@ -108,10 +102,9 @@
     transform: translateX(-50%);
     width: 70px;
     height: 2px;
-    background-color: #FFFFFF; /* Gạch chân khi active */
+    background-color: #FFFFFF;
   }
 
-  /* Tiêu đề */
   h1 { 
     font-size: 2rem; 
     margin-bottom: 2rem; 
@@ -125,7 +118,6 @@
     font-weight: 500; 
   }
 
-  /* Nhóm input */
   .input-group {
     margin-bottom: 1.5rem;
     display: flex;
@@ -134,7 +126,7 @@
     gap: 1rem;
     width: 100%;
     padding: 0 15px;
-    flex-wrap: nowrap; /* Không xuống dòng */
+    flex-wrap: nowrap;
   }
 
   select, input[type="date"] {
@@ -149,11 +141,10 @@
   }
 
   select:focus, input[type="date"]:focus {
-    outline: none; /* Sửa lỗi 'đường' thành 'none' */
+    outline: дороге;
     border-color: var(--primary-color);
   }
 
-  /* Nút bấm */
   button {
     padding: 0.6rem 1.5rem;
     background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
@@ -167,31 +158,26 @@
   }
 
   button:hover { 
-    transform: translateY(-2px); /* Hiệu ứng nâng lên */
+    transform: translateY(-2px); 
   }
 
-  /* Container cho các stat-box mặc định (ngang) */
   .stats-container {
     display: flex;
-    justify-content: center; /* Căn giữa các stat-box */
+    justify-content: center;
     gap: 1rem;
     margin-bottom: 2rem;
     width: 100%;
-    max-width: 600px; /* Giới hạn tổng chiều rộng (3 x 200px) */
-    flex-wrap: nowrap; /* Bố cục ngang */
-    margin-left: auto;
-    margin-right: auto;
+    flex-wrap: nowrap; /* Đảm bảo bố cục ngang */
   }
 
-  /* Thiết lập mặc định cho stat-box */
   .stat-box {
     padding: 1rem;
-    width: 180px; /* Giảm từ 200px xuống 180px để vừa .content-wrapper */
+    width: 120px; /* Giảm chiều rộng để vừa cả 3 hộp trên một hàng */
     border-radius: 16px;
-    font-size: 0.9rem;
-    flex-grow: 0;
-    flex-shrink: 0;
-    max-width: 180px;
+    font-size: 0.9rem; /* Giảm kích thước chữ để vừa nội dung */
+    flex-grow: 0; /* Không cho phép mở rộng */
+    flex-shrink: 0; /* Không cho phép thu nhỏ */
+    max-width: 120px;
     min-height: 80px;
     display: flex;
     flex-direction: column;
@@ -201,7 +187,6 @@
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     transition: transform 0.2s;
     text-align: center;
-    overflow: hidden; /* Ẩn nội dung tràn ra ngoài */
   }
 
   .stat-box:hover { 
@@ -212,48 +197,32 @@
     font-weight: 500;
     margin-bottom: 0.5rem;
     color: var(--text-color);
-    font-size: 0.85rem; /* Giảm từ 0.9rem để vừa không gian */
-    white-space: normal; /* Cho phép xuống dòng nếu cần */
-    line-height: 1.2;
+    font-size: 0.9rem; /* Điều chỉnh kích thước chữ */
+    white-space: normal; /* Cho phép xuống dòng */
+    line-height: 1.2; /* Cải thiện khả năng đọc */
   }
 
   .stat-box .amount {
     font-weight: 700;
-    font-size: 1.1rem; /* Giảm từ 1.2rem để vừa không gian */
+    font-size: 1.2rem; /* Giảm kích thước chữ của số tiền */
     display: flex;
     align-items: center;
     gap: 8px;
-    white-space: nowrap; /* Giữ trên một dòng */
-  }
-
-  /* Khi không có dữ liệu, giảm cỡ chữ để vừa stat-box */
-  .stat-box .amount.no-data {
-    font-size: 0.75rem; /* Giảm từ 0.85rem để hiển thị đầy đủ trong 180px */
-    color: var(--secondary-color);
+    white-space: nowrap;
   }
 
   .income .amount { color: #10B981; }
   .expense .amount { color: #EF4444; }
   .balance .amount { color: var(--primary-color); }
 
-  /* Thông báo không có dữ liệu (nếu dùng riêng) */
   .notification {
     text-align: center;
     margin-bottom: 1rem;
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: var(--secondary-color);
-    white-space: nowrap;
-    padding: 0 0.5rem;
-    max-width: 100%;
   }
 
   /* Tab 1: Thống kê */
-  .stats-container .notification {
-    width: 100%;
-    max-width: 540px; /* Giảm từ 600px xuống 540px (3 x 180px) */
-    margin: 0 auto;
-  }
-
   .chart-container {
     margin-top: 0;
     width: 100%;
@@ -547,34 +516,6 @@
   }
 
   /* Tab 4: Giao dịch */
-  #dailySummary.stats-container {
-    display: flex;
-    justify-content: center; /* Căn giữa các stat-box */
-    gap: 1rem;
-    margin-bottom: 2rem;
-    width: 100%;
-    max-width: 600px; /* Giới hạn tổng chiều rộng (3 x 200px) */
-    flex-wrap: nowrap;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  #dailySummary .notification {
-    width: 100%;
-    max-width: 540px; /* Giảm từ 600px xuống 540px (3 x 180px) */
-    margin: 0 auto;
-  }
-
-  #transactionsContainer.stats-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-
   .transaction-box {
     padding: 1rem;
     width: 100%;
@@ -659,40 +600,23 @@
     }
     .stats-container { 
       gap: 0.5rem; 
-      flex-wrap: nowrap;
-      justify-content: center; /* Căn giữa */
-      max-width: 360px; /* 3 x 120px */
-    }
-    #dailySummary.stats-container {
-      max-width: 360px; /* 3 x 120px */
-      justify-content: center;
+      flex-wrap: nowrap; /* Giữ bố cục ngang ngay cả trên màn hình nhỏ */
+      justify-content: space-between; /* Phân phối đều khoảng cách */
     }
     .stat-box { 
-      width: 110px; /* Giảm từ 120px xuống 110px để vừa màn hình nhỏ */
-      max-width: 110px;
+      width: 100px; /* Giảm thêm chiều rộng cho màn hình nhỏ */
+      max-width: 100px;
       padding: 0.8rem; 
       min-height: 70px; 
-      font-size: 0.8rem;
+      font-size: 0.8rem; /* Chữ nhỏ hơn cho màn hình nhỏ */
     }
     .stat-box .title { 
-      font-size: 0.75rem; /* Giảm từ 0.8rem */
+      font-size: 0.8rem; 
       margin-bottom: 0.5rem; 
     }
     .stat-box .amount { 
-      font-size: 0.9rem; /* Giảm từ 1rem */
+      font-size: 1rem; /* Giảm kích thước chữ số tiền */
     }
-    .stat-box .amount.no-data { 
-      font-size: 0.65rem; /* Giảm từ 0.7rem để vừa 110px */
-    }
-    .stats-container .notification,
-    #dailySummary .notification {
-      max-width: 330px; /* Giảm từ 360px xuống 330px (3 x 110px) */
-      font-size: 0.75rem;
-    }
-    #transactionsContainer.stats-container {
-      gap: 0.8rem;
-    }
-
     canvas#myChart { 
       max-width: 320px !important; 
     }
@@ -761,28 +685,16 @@
     body { padding: 70px 20px 20px; }
     h1 { font-size: 1.8rem; }
     .stats-container { 
-      gap: 1rem; /* Giảm gap để vừa không gian */
-      flex-wrap: nowrap;
-      justify-content: center; /* Căn giữa */
-      max-width: 480px; /* 3 x 160px */
-    }
-    #dailySummary.stats-container {
-      max-width: 480px; /* 3 x 160px */
-      justify-content: center;
+      gap: 1.5rem; 
+      flex-wrap: nowrap; /* Giữ bố cục ngang */
     }
     .stat-box { 
-      width: 150px; /* Giảm từ 160px xuống 150px để vừa không gian */
+      width: 130px; /* Chiều rộng lớn hơn một chút cho màn hình trung bình */
       padding: 1rem; 
-      max-width: 150px;
+      max-width: 130px;
     }
-    .stat-box .title { font-size: 0.85rem; /* Giảm từ 0.95rem */ }
-    .stat-box .amount { font-size: 1rem; /* Giảm từ 1.2rem */ }
-    .stat-box .amount.no-data { font-size: 0.7rem; /* Giảm từ 0.8rem */ }
-    .stats-container .notification,
-    #dailySummary .notification {
-      max-width: 450px; /* Giảm từ 480px xuống 450px (3 x 150px) */
-      font-size: 0.85rem;
-    }
+    .stat-box .title { font-size: 0.95rem; }
+    .stat-box .amount { font-size: 1.2rem; }
     canvas#myChart { max-width: 450px !important; }
     canvas#monthlyChart { 
       max-width: 500px !important; 
@@ -827,28 +739,16 @@
     body { padding: 80px 30px 30px; }
     h1 { font-size: 2rem; }
     .stats-container { 
-      gap: 1.5rem; /* Giảm gap để vừa không gian */
-      flex-wrap: nowrap;
-      justify-content: center; /* Căn giữa */
-      max-width: 600px; /* Giới hạn 3 x 200px */
-    }
-    #dailySummary.stats-container {
-      max-width: 600px; /* Giới hạn 3 x 200px */
-      justify-content: center;
+      gap: 2rem; 
+      flex-wrap: nowrap; /* Giữ bố cục ngang */
     }
     .stat-box { 
-      width: 180px; /* Giảm từ 200px xuống 180px */
+      width: 140px; /* Chiều rộng lớn hơn cho màn hình lớn */
       padding: 1rem; 
-      max-width: 180px;
+      max-width: 140px;
     }
-    .stat-box .title { font-size: 0.85rem; /* Giảm từ 1rem */ }
-    .stat-box .amount { font-size: 1.1rem; /* Giảm từ 1.3rem */ }
-    .stat-box .amount.no-data { font-size: 0.75rem; /* Giảm từ 0.85rem */ }
-    .stats-container .notification,
-    #dailySummary .notification {
-      max-width: 540px; /* Giảm từ 600px xuống 540px (3 x 180px) */
-      font-size: 0.9rem;
-    }
+    .stat-box .title { font-size: 1rem; }
+    .stat-box .amount { font-size: 1.3rem; }
     canvas#myChart { max-width: 500px !important; }
     canvas#monthlyChart { 
       max-width: 600px !important; 
@@ -1010,6 +910,8 @@
   <div class="contact-column">
     <p><i class="fas fa-user" style="color: var(--primary-color);"></i><strong>Người tạo:</strong> <span class="highlight-color">Hoàng Hùng</span></p>
     <p><i class="fab fa-telegram-plane" style="color: var(--primary-color);"></i><strong>Telegram:</strong> <a href="https://t.me/masterhmh" target="_blank">@masterhmh</a></p>
+  </div>
+  <div class="contact-column">
     <p><i class="fab fa-facebook" style="color: var(--primary-color);"></i><strong>Facebook:</strong> <a href="https://facebook.com/masterhmh" target="_blank">facebook.com/masterhmh</a></p>
     <p><i class="fas fa-envelope" style="color: var(--primary-color);"></i><strong>Email:</strong> <a href="mailto:masterhmh@gmail.com">masterhmh@gmail.com</a></p>
   </div>
@@ -1064,94 +966,82 @@
         document.querySelector(`.nav-item[data-tab="${tabId}"]`).classList.add('active');
     };
 
-   window.fetchData = async function() {
-    const startDateInput = document.getElementById('startDate').value;
-    const endDateInput = document.getElementById('endDate').value;
-    console.log("Fetching data from: " + startDateInput + " to: " + endDateInput);
-    if (!startDateInput || !endDateInput) {
-        alert("Vui lòng chọn khoảng thời gian!");
-        return;
-    }
-    const startDate = new Date(startDateInput);
-    const endDate = new Date(endDateInput);
-    if (startDate > endDate) {
-        alert("Ngày bắt đầu không thể lớn hơn ngày kết thúc!");
-        return;
-    }
-
-    try {
-        const financialResponse = await fetch(`${apiUrl}?action=getFinancialSummary&startDate=${startDateInput}&endDate=${endDateInput}&sheetId=${sheetId}`);
-        const financialData = await financialResponse.json();
-        console.log("Raw financial data from API: ", financialData);
-        if (financialData.error) {
-            throw new Error(financialData.error);
+    window.fetchData = async function() {
+        const startDateInput = document.getElementById('startDate').value;
+        const endDateInput = document.getElementById('endDate').value;
+        console.log("Fetching data from: " + startDateInput + " to: " + endDateInput);
+        if (!startDateInput || !endDateInput) {
+            alert("Vui lòng chọn khoảng thời gian!");
+            return;
         }
-        updateFinancialData(financialData);
-        updateChartData(financialData); // Thêm dòng này để cập nhật biểu đồ
-    } catch (error) {
-        console.error("Error fetching data: ", error);
-        alert("Lỗi khi lấy dữ liệu: " + error.message);
-        updateFinancialData({ error: true });
-        updateChartData({ error: true }); // Cập nhật biểu đồ với lỗi
-    }
-};
+        const startDate = new Date(startDateInput);
+        const endDate = new Date(endDateInput);
+        if (startDate > endDate) {
+            alert("Ngày bắt đầu không thể lớn hơn ngày kết thúc!");
+            return;
+        }
+
+        try {
+            const financialResponse = await fetch(`${apiUrl}?action=getFinancialSummary&startDate=${startDateInput}&endDate=${endDateInput}&sheetId=${sheetId}`);
+            const financialData = await financialResponse.json();
+            console.log("Financial data received: ", financialData);
+            if (financialData.error) {
+                throw new Error(financialData.error);
+            }
+            updateFinancialData(financialData);
+
+            const chartResponse = await fetch(`${apiUrl}?action=getChartData&startDate=${startDateInput}&endDate=${endDateInput}&sheetId=${sheetId}`);
+            const chartData = await chartResponse.json();
+            console.log("Chart data received: ", chartData);
+            if (chartData.error) {
+                throw new Error(chartData.error);
+            }
+            updateChartData(chartData);
+        } catch (error) {
+            console.error("Error fetching data: ", error);
+            alert("Lỗi khi lấy dữ liệu: " + error.message);
+            updateFinancialData({ error: true });
+        }
+    };
 
     function updateFinancialData(data) {
-      console.log("Updating financial data with: ", data);
-      const container = document.getElementById('statsContainer');
-
-      // Kiểm tra tất cả trường hợp "không có dữ liệu"
-      const isInvalidData = !data || 
-                           data.error || 
-                           (data.income === undefined && data.expense === undefined) || 
-                           (data.income == null && data.expense == null) || 
-                           (
-                             Number(data.income) === 0 && 
-                             Number(data.expense) === 0 && 
-                             Number(data.savings) === 0 && 
-                             Number(data.balance) === 0 && 
-                             Array.isArray(data.expenseCategories) && 
-                             data.expenseCategories.length === 0
-                           );
-
-      if (isInvalidData) {
-        console.log("No valid data detected - Displaying 'Không có dữ liệu'");
+        console.log("Updating financial data with: ", data);
+        const container = document.getElementById('statsContainer');
+        if (!data || data.error || Object.keys(data).length === 0) {
+            console.log("No data or error detected");
+            container.innerHTML = `
+                <div class="stat-box income">
+                    <div class="title">Tổng thu nhập</div>
+                    <div class="amount">0đ</div>
+                </div>
+                <div class="stat-box expense">
+                    <div class="title">Tổng chi tiêu</div>
+                    <div class="amount">0đ</div>
+                </div>
+                <div class="stat-box balance">
+                    <div class="title">Số dư</div>
+                    <div class="amount">0đ</div>
+                </div>
+            `;
+            return;
+        }
+        const totalIncome = Number(data.income) || 0;
+        const totalExpense = Number(data.expense) || 0;
+        const balance = totalIncome - totalExpense;
         container.innerHTML = `
-          <div class="stat-box income">
-              <div class="title">Tổng thu nhập</div>
-              <div class="amount">Không có dữ liệu</div> <!-- Bỏ class 'no-data' -->
-          </div>
-          <div class="stat-box expense">
-              <div class="title">Tổng chi tiêu</div>
-              <div class="amount">Không có dữ liệu</div> <!-- Bỏ class 'no-data' -->
-          </div>
-          <div class="stat-box balance">
-              <div class="title">Số dư</div>
-              <div class="amount">Không có dữ liệu</div> <!-- Bỏ class 'no-data' -->
-          </div>
+            <div class="stat-box income">
+                <div class="title">Tổng thu nhập</div>
+                <div class="amount">${totalIncome.toLocaleString('vi-VN')}đ</div>
+            </div>
+            <div class="stat-box expense">
+                <div class="title">Tổng chi tiêu</div>
+                <div class="amount">${totalExpense.toLocaleString('vi-VN')}đ</div>
+            </div>
+            <div class="stat-box balance">
+                <div class="title">Số dư</div>
+                <div class="amount">${balance.toLocaleString('vi-VN')}đ</div>
+            </div>
         `;
-        return;
-      }
-
-      // Nếu có dữ liệu hợp lệ
-      const totalIncome = Number(data.income) || 0;
-      const totalExpense = Number(data.expense) || 0;
-      const balance = totalIncome - totalExpense;
-      console.log("Calculated values - Income: ", totalIncome, "Expense: ", totalExpense, "Balance: ", balance);
-      container.innerHTML = `
-        <div class="stat-box income">
-            <div class="title">Tổng thu nhập</div>
-            <div class="amount">${totalIncome.toLocaleString('vi-VN')}đ</div>
-        </div>
-        <div class="stat-box expense">
-            <div class="title">Tổng chi tiêu</div>
-            <div class="amount">${totalExpense.toLocaleString('vi-VN')}đ</div>
-        </div>
-        <div class="stat-box balance">
-            <div class="title">Số dư</div>
-            <div class="amount">${balance.toLocaleString('vi-VN')}đ</div>
-        </div>
-      `;
     }
 
     function updateChartData(response) {
