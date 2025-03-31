@@ -16,8 +16,7 @@
           <p><i class="fas fa-credit-card" style="color: var(--accent-color);"></i><strong>Số tài khoản:</strong> 6666.6789.9999</p>
         </div>
         <div class="qr-container">
-          <a href="https://momo.vn/" target="_blank" class="cta-button">Ủng hộ ngay</a>
-          <div class="qr-frame">
+            <div class="qr-frame">
             <img id="qrImage" src="https://i.pinimg.com/736x/7c/13/53/7c135389e26cbc6460626deb9e2aa5c6.jpg" alt="QR Code" class="qr-image">
           </div>
           <p class="qr-caption">Quét mã QR để ủng hộ qua Momo</p>
