@@ -37,9 +37,6 @@ body {
   height: 100vh;
   font-size: 1rem;
   color: var(--text-color);
-  display: flex; /* Thêm flex để căn giữa content-wrapper */
-  flex-direction: column;
-  align-items: center;
 }
 
 .content-wrapper { 
@@ -47,9 +44,6 @@ body {
   width: 100%; 
   margin: 0 auto; 
   overflow-x: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Đảm bảo nội dung bên trong được căn giữa */
 }
 
 .tab-content { 
@@ -182,7 +176,7 @@ button:hover {
   gap: 1rem;
   margin-bottom: 2rem;
   width: 100%;
-  flex-wrap: wrap; /* Cho phép xuống dòng trên màn hình nhỏ */
+  flex-wrap: wrap; /* Cho phép xuống dòng để căn giữa chính xác */
 }
 
 .stats-container > div { 
@@ -614,7 +608,7 @@ canvas#monthlyChart {
   button { padding: 0.6rem 1rem; font-size: 0.85rem; }
   .stats-container { 
     gap: 0.5rem; 
-    flex-wrap: wrap; /* Cho phép xuống dòng */
+    flex-wrap: wrap; /* Cho phép xuống dòng để căn giữa */
     justify-content: center; /* Đảm bảo căn giữa */
   }
   .stat-box { 
