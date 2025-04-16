@@ -78,7 +78,7 @@ body {
 /* Nhóm: Thanh điều hướng trên cùng */
 .top-nav {
   position: fixed;
-  top: 40px;
+  top: 42px;
   left: 0;
   right: 0;
   display: flex;
@@ -101,7 +101,7 @@ body {
   padding: 5px;
   color: #fff;
   transition: opacity 0.3s, background-color 0.3s;
-  font-size: 0.9rem; /* Smaller nav font */
+  font-size: 0.9rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -109,8 +109,8 @@ body {
 }
 
 .nav-item:hover { opacity: 0.8; }
-.nav-item i { font-size: 1.3rem; margin-bottom: 5px; } /* Smaller icon */
-.nav-item span { display: block; font-size: 0.8rem; } /* Smaller nav text */
+.nav-item i { font-size: 1.3rem; margin-bottom: 5px; }
+.nav-item span { display: block; font-size: 0.8rem; }
 .nav-item.active {
   font-weight: 600;
   color: #FFFFFF;
@@ -623,27 +623,20 @@ canvas#monthlyChart {
     font-size: 0.85rem; 
   }
   .header {
-    padding: 10px 10px;
-    height: 35px;
+    padding: 6px 10px;
+    height: 40px; /* Tăng chiều cao từ 36px lên 40px để tạo khoảng cách với thanh điều hướng */
   }
-  .header span {
+  .header .version, .header .author {
     font-size: 0.9rem;
   }
-  h1 { font-size: 1.4rem; margin-bottom: 0.9rem; }
-  .top-nav { 
-    height: 50px; 
-    padding: 10px 0; 
-    top: 35px; 
+  .top-nav {
+    top: 40px; /* Đẩy xuống tương ứng với chiều cao header mới */
+    height: 50px;
+    padding: 10px 0;
   }
   .nav-item i { font-size: 1.1rem; }
   .nav-item span { font-size: 0.7rem; }
-  .input-group { gap: 0.4rem; padding: 0 5px; }
-  select, input[type="date"] { width: 100px; font-size: 0.8rem; padding: 0.5rem; }
-  button { padding: 0.5rem 0.9rem; font-size: 0.8rem; }
-  .stats-container { 
-    gap: 0.4rem; 
-    justify-content: center;
-  }
+}
   .stat-box { 
     width: 90px; 
     max-width: 90px; 
@@ -705,7 +698,10 @@ canvas#monthlyChart {
 @media (min-width: 601px) and (max-width: 1023px) {
   body { padding: 110px 18px 18px; }
   h1 { font-size: 1.6rem; }
-  .top-nav { top: 40px; }
+  .top-nav {
+    top: 42px; /* Đảm bảo khoảng cách với header */
+    height: 55px;
+  }
   .stats-container { 
     gap: 1.3rem; 
     justify-content: center;
@@ -748,7 +744,9 @@ canvas#monthlyChart {
 @media (min-width: 1024px) {
   .content-wrapper { max-width: 780px; }
   body { padding: 120px 28px 28px; }
-  .top-nav { top: 40px; }
+  .top-nav {
+    top: 42px; /* Đảm bảo khoảng cách với header */
+  }
   h1 { font-size: 1.8rem; }
   .stats-container { 
     gap: 1.8rem; 
@@ -899,13 +897,54 @@ canvas#monthlyChart {
     font-size: 1.1rem;
   }
 }
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--card-bg);
+  padding: 6px 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  z-index: 999;
+  height: 42px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header .version {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-color);
+  text-align: left;
+}
+
+.header .author {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-color);
+  text-align: right;
+}
+
+
+/* Điều chỉnh cho màn hình nhỏ hơn */
+@media (max-width: 600px) {
+  .header {
+    padding: 12px 10px 10px;
+    height: 37px;
+  }
+  .header .version, .header .author {
+    font-size: 0.9rem;
+  }
+}
   </style>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
 </head>
 <body>
   <div class="header">
-    <span>Phiên bản miễn phí</span>
+    <span class="version">Phiên bản miễn phí</span>
+    <span class="author">masterhmh</span>
   </div>
 
   <div id="notificationPopup" class="popup">
@@ -924,6 +963,7 @@ canvas#monthlyChart {
       <p><strong>📌 Lưu ý:</strong></p>
       <ul>
         <li>Bản miễn phí sẽ duy trì đến <strong>31/05/2025</strong></li>
+        <li>Sau ngày <strong>31/05/2025</strong>nếu bạn vẫn muốn sử dụng phiên bản miễn phí này thì hãy liên hệ với chúng tôi để nhận code kích hoạt với giá <strong>19.000đ</strong> </li>
         <li>Bản PRO không tương thích với đoạn mã Google Apps Script cũ</li>
         <li>Nếu bạn muốn nâng cấp, hãy liên hệ với chúng tôi để được hỗ trợ.</li>
       </ul>
