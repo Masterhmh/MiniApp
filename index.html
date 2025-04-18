@@ -18,7 +18,209 @@
   --gradient-end: #60A5FA; /* Blue-400 */
   --accent-color: #3B82F6; /* Blue-500 */
 }
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary-color: #4F9AFF;
+    --secondary-color: #8B9098;
+    --background-color: #181A1B;
+    --card-bg: #1C1E1F;
+    --text-color: #E4E7EB;
+    --gradient-start: #3B82F6;
+    --gradient-end: #7C3AED;
+    --income-color: #2ECC71;
+    --expense-color: #E74C3C;        
+    --balance-color: #3498DB;        
+    --edit-btn-color: #0E7490;
+    --delete-btn-color: #B91C1C;
+    --stat-box-bg-start: #181A1B;
+    --stat-box-bg-end: #252729;
+    --input-bg: #1E2022;
+    --input-border: #45484C;
+    --stat-title-color: #E4E7EB;
+  }
 
+  /* Stat-box tổng quan (Tổng thu nhập, Tổng chi tiêu, Số dư) */
+  .stat-box {
+    background: linear-gradient(135deg, var(--stat-box-bg-start), var(--stat-box-bg-end)) !important;
+  }
+
+  .stat-box .title {
+    color: var(--stat-title-color) !important;
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+
+  .stat-box .amount {
+    font-weight: 600;
+    font-size: 1.25rem;
+  }
+
+  .income .amount { color: var(--income-color) !important; }
+  .expense .amount { color: var(--expense-color) !important; }
+  .balance .amount { color: var(--balance-color) !important; }
+
+  /* Transaction-box (khối giao dịch trong tab 1, 2, 3) */
+  .transaction-box {
+    background: linear-gradient(135deg, var(--stat-box-bg-start), var(--stat-box-bg-end)) !important;
+    color: var(--text-color) !important;
+    border: 1px solid var(--input-border) !important;
+    border-radius: 16px;
+    padding: 1rem;
+    box-shadow: none !important;
+  }
+
+  .transaction-box .date {
+    color: var(--text-color) !important;
+    font-weight: 500;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .transaction-box .amount {
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .transaction-box .type,
+  .transaction-box .content,
+  .transaction-box .category {
+    color: var(--text-color) !important;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .transaction-box .id,
+  .transaction-box .number {
+    color: var(--secondary-color) !important;
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .transaction-box .type.expense { color: var(--expense-color) !important; }
+  .transaction-box .type.income { color: var(--income-color) !important; }
+  .transaction-box .income .amount,
+  .transaction-box .type.income + .amount { color: var(--income-color) !important; }
+  .transaction-box .expense .amount,
+  .transaction-box .type.expense + .amount { color: var(--expense-color) !important; }
+
+  .transaction-box button.edit {
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end)) !important;
+    color: #E4E7EB !important;
+    border: none;
+    border-radius: 8px;
+    padding: 0.3rem 0.8rem;
+    margin-right: 0.5rem;
+  }
+
+  .transaction-box button.delete {
+    background: linear-gradient(135deg, var(--delete-btn-color), #F87171) !important;
+    color: #E4E7EB !important;
+    border: none;
+    border-radius: 8px;
+    padding: 0.3rem 0.8rem;
+  }
+
+   /* Transaction-item (dự phòng nếu HTML dùng lớp này) */
+  .transaction-item {
+    background: linear-gradient(135deg, var(--stat-box-bg-start), var(--stat-box-bg-end)) !important;
+    color: var(--text-color) !important;
+    border: 1px solid var(--input-border) !important;
+    border-radius: 4px;
+    padding: 12px;
+    margin-bottom: 10px;
+  }
+
+  .transaction-item .date,
+  .transaction-item .code,
+  .transaction-item .description {
+    color: var(--text-color) !important;
+    font-size: 0.95rem;
+  }
+
+  .transaction-item .amount {
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
+  .transaction-item .income .amount,
+  .transaction-item .type.income + .amount { color: var(--income-color) !important; }
+  .transaction-item .expense .amount,
+  .transaction-item .type.expense + .amount { color: var(--expense-color) !important; }
+
+  .transaction-item button.edit {
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end)) !important;
+    color: #E4E7EB !important;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+  }
+
+  .transaction-item button.delete {
+    background: linear-gradient(135deg, var(--delete-btn-color), #F87171) !important;
+    color: #E4E7EB !important;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+  }
+
+  /* Trường nhập liệu tất cả các tab */
+  select,
+  input[type="month"],
+  input[type="date"],
+  input[type="text"],
+  input[type="number"] {
+    background-color: var_credit_card(--input-bg) !important;
+    color: var(--text-color) !important;
+    border: 1px solid var(--input-border) !important;
+    border-radius: 4px;
+  }
+
+  input::placeholder,
+  select::placeholder {
+    color: var(--secondary-color) !important;
+    opacity: 0.8;
+  }
+
+  /* Biểu tượng lịch */
+  input[type="date"]::-webkit-calendar-picker-indicator,
+  input[type="month"]::-webkit-calendar-picker-indicator {
+    filter: invert(90%) !important;
+    cursor: pointer;
+  }
+
+  /* Mũi tên select */
+  select {
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23E4E7EB" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') !important;
+    background-position: right 10px center;
+    background-repeat: no-repeat;
+  }
+
+.popup-content {
+    background: linear-gradient(135deg, var(--stat-box-bg-start), var(--stat-box-bg-end)) !important;
+    color: var(--text-color) !important;
+    box-shadow: 0 4px 20px var(--dark-shadow);
+  }
+
+  .popup-content h2,
+  .popup-content p,
+  .popup-content ul li {
+    color: var(--dark-text);
+  }
+
+  .popup-content .note {
+    color: var(--dark-secondary-text);
+  }
+
+  .popup-content label {
+    color: var(--dark-text);
+  }
+
+  .popup-content .close-btn {
+    color: var(--dark-secondary-text);
+  }
+}
 /* Nhóm: Cấu hình chung cho trang */
 html { 
   font-size: 15px; /* Reduced base font size */
@@ -952,6 +1154,7 @@ canvas#monthlyChart {
       <button class="close-btn" onclick="closePopup()">×</button>
       <h2>Thông báo</h2>
       <p><strong>Cảm ơn bạn đã sử dụng Miniapp!</strong></p>
+      <p>Chúng tôi mới cập nhật thêm giao diện Dark Mode (Chế độ tối) cho Miniapp. Bạn hãy chuyển giao diện của thiết bị sang chế độ Dark Mode (Chế độ tối) để trải nghiệm nhé</p>
       <p>Chúng tôi rất trân trọng sự đồng hành của bạn. Tuy nhiên, sau thời gian phát triển, chúng tôi nhận thấy bản miễn phí còn nhiều giới hạn.</p>
       <p>Vì thế, từ ngày <strong>30/04/2025</strong>, Miniapp sẽ ra mắt <strong>phiên bản PRO</strong> với giá chỉ <strong>49.000đ</strong>, bao gồm các tính năng nâng cấp:</p>
       <ul>
@@ -1704,6 +1907,6 @@ canvas#monthlyChart {
     document.addEventListener('DOMContentLoaded', function() {
       showPopup();
     });
-  </script>
+     </script>
 </body>
 </html>
